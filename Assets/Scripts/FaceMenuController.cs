@@ -5,6 +5,7 @@ using UnityEngine;
 public class FaceMenuController : MonoBehaviour
 {
     [SerializeField] private List<SelectableItem> _tabButtons = new List<SelectableItem>();
+    [SerializeField] private List<GameObject> _menus = new List<GameObject>();
 
     private void OnEnable()
     {
@@ -15,6 +16,7 @@ public class FaceMenuController : MonoBehaviour
     {
         for (int i = 0; i < _tabButtons.Count; i++) {
             if (i != tab) _tabButtons[i].Deselect();
+            _menus[i].SetActive(i == tab);
         }
     }
 }
