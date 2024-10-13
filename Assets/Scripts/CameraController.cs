@@ -2,6 +2,7 @@ using MyBox;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CameraController : MonoBehaviour
 {
@@ -10,6 +11,11 @@ public class CameraController : MonoBehaviour
     
     [SerializeField]
     private void Update()
+    {
+        if (!EventSystem.current.IsPointerOverGameObject()) Scroll();
+    }
+
+    private void Scroll()
     {
         float delta = Input.mouseScrollDelta.y;
         var z = transform.position.z;
