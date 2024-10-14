@@ -45,7 +45,8 @@ public class ColorMenuController : MonoBehaviour
     {
         _inputingHex = true;
         ColorUtility.TryParseHtmlString(hex, out var rgb);
-        Color.RGBToHSV(rgb, out _currentHue, out _currentVal, out _currentSat);
+        Color.RGBToHSV(rgb, out _currentHue, out _currentSat, out _currentVal);
+        print("input hex: " +  hex + ", current col hex: " + _currentColor.ToHex());
         _hueSlider.value = _currentHue;
         _selector.SetPosition(new Vector2(_currentSat, _currentVal));
         UpdateCurrentColor();
@@ -60,12 +61,14 @@ public class ColorMenuController : MonoBehaviour
 
     private void UpdateCurrentColor()
     {
-        var pos = _selector.GetNormalizedPositionFromCenter();
-        _currentSat = pos.x;
-        _currentVal = pos.y;
+        if (!_inputingHex) {
+            var pos = _selector.GetNormalizedPositionFromCenter();
+            _currentSat = pos.x;
+            _currentVal = pos.y;
+            _hexInput.UpdateText(_currentColor.ToHex());
+        }
         _currentColorImg.color = _currentColor;
         print("hex: " + _currentColor.ToHex());
-        if (!_inputingHex) _hexInput.UpdateText(_currentColor.ToHex());
     }
 
     private void StopSelecting()

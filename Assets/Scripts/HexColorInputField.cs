@@ -42,9 +42,11 @@ public class HexColorInputField : MonoBehaviour
         else if (newLetter > 102) ResetToLastValid();
         else {
             UpdateText(current);
+            string old = current;
             while (current.Length < 6) current = "0" + current;
             current = "#" + current;
             _controller.SetFromHexCode(current);
+            print("set from hex. hex: " + current + ", old: " + old);
         }
     }
 
