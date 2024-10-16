@@ -14,7 +14,12 @@ public class MoveMenuController : MonoBehaviour
 
     private void OnEnable()
     {
-        _current = _faceController.GetCurrent();   
+        _current = _faceController.Current;
+        var currentValues = _current.GetValues();
+        _horiSlider.value = currentValues.x;
+        _vertSlider.value = currentValues.y;
+        _sizeSlider.value = currentValues.z;
+        _angleSlider.value = currentValues.w;
     }
 
     public void SetVert() => _current.SetVert(_vertSlider.value);

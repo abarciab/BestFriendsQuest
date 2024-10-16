@@ -6,10 +6,12 @@ public class FaceMenuController : MonoBehaviour
 {
     [SerializeField] private List<SelectableItem> _tabButtons = new List<SelectableItem>();
     [SerializeField] private List<GameObject> _menus = new List<GameObject>();
+    [SerializeField] private LayersMenuController _layersMenu;
 
     private void OnEnable()
     {
         _tabButtons[0].Select();
+        _layersMenu.Initialize();
     }
 
     public void SelectTab(int tab)

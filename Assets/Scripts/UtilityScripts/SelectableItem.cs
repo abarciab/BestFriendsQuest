@@ -145,6 +145,7 @@ public class SelectableItem : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public bool Disabled { get; private set; }
 
     private float _lastHoverTime = 0;
+    private bool _hasBeenSelected;
 
     private void OnValidate()
     {
@@ -158,7 +159,7 @@ public class SelectableItem : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         if (_deselectSound) _deselectSound = Instantiate(_deselectSound);
 
         //Disabled = false;
-        if (_deselectOnStart) Deselect();
+        if (_deselectOnStart && !_hasBeenSelected) Deselect();
     }
 
     private void Update()
@@ -190,6 +191,7 @@ public class SelectableItem : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void Select()
     {
+        _hasBeenSelected = true;
         if (_printSelections) print(gameObject.name + " selected");
         OnSelect.Invoke();
         if (_selectSound && _selectSound.Instantialized) _selectSound.Play(); 

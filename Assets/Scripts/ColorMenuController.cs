@@ -2,6 +2,7 @@ using MyBox;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class ColorMenuController : MonoBehaviour
@@ -12,6 +13,9 @@ public class ColorMenuController : MonoBehaviour
     [SerializeField] private Slider _hueSlider;
     [SerializeField] private HexColorInputField _hexInput;
     [SerializeField, Range(0, 1)] private float _hueValue = 0.5f;
+    [SerializeField] private Color _defaultColor;
+    [SerializeField] private UnityEvent<Color> _onChangeColor;
+
 
     private float _currentHue = 0.5f;
     private float _currentSat = 0.5f;
@@ -31,6 +35,7 @@ public class ColorMenuController : MonoBehaviour
         CreateTextures();
         _selector.enabled = false;
         UpdateHue();
+        SetFromHexCode(_defaultColor.ToHex());
     }
 
     private void Update()
@@ -46,7 +51,6 @@ public class ColorMenuController : MonoBehaviour
         _inputingHex = true;
         ColorUtility.TryParseHtmlString(hex, out var rgb);
         Color.RGBToHSV(rgb, out _currentHue, out _currentSat, out _currentVal);
-        print("input hex: " +  hex + ", current col hex: " + _currentColor.ToHex());
         _hueSlider.value = _currentHue;
         _selector.SetPosition(new Vector2(_currentSat, _currentVal));
         UpdateCurrentColor();
@@ -68,7 +72,7 @@ public class ColorMenuController : MonoBehaviour
             _hexInput.UpdateText(_currentColor.ToHex());
         }
         _currentColorImg.color = _currentColor;
-        print("hex: " + _currentColor.ToHex());
+        _onChangeColor.Invoke(_currentColor);
     }
 
     private void StopSelecting()
