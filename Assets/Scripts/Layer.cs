@@ -1,3 +1,4 @@
+using MyBox;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,18 +9,18 @@ public class Layer : MonoBehaviour
     private LayersMenuController _controller;
     [SerializeField] private SelectableItem _mirrorCheckBox;
     [SerializeField] private Image _preview;
-    private FacialFeature _feature;
+    private IFeatureObj _feature;
 
     private void Start()
     {
         _controller = GetComponentInParent<LayersMenuController>();
     }
 
-    public void Initialize(FacialFeature feature)
+    public void Initialize(IFeatureObj feature)
     {
-        _preview.sprite = feature.GetData().Icon;
-        _feature = feature;
-        if (feature.GetData().Mirror) _mirrorCheckBox.Select();
+        _feature = feature.As<IFeatureObj>();
+        _preview.sprite = _feature.GetIcon();
+        if (_feature.IsMirror()) _mirrorCheckBox.Select();
     }
 
     public void Select()

@@ -12,12 +12,12 @@ public class AddMenuController : MonoBehaviour
 
     private List<AddOption> _spawnedAddOptions = new List<AddOption>();
 
-    public void BuildAddList(FaceFeatureController faceController)
+    public void BuildAddList(IFeatureController faceController)
     {
         foreach (var a in _spawnedAddOptions) Destroy(a.gameObject);
         _spawnedAddOptions.Clear();
 
-        foreach (var feature in faceController.AllFeatures) AddOption(feature);
+        foreach (var feature in faceController.GetAllOptions()) AddOption(feature);
     }
 
     private void AddOption(FeatureData feature)
@@ -27,7 +27,7 @@ public class AddMenuController : MonoBehaviour
         _spawnedAddOptions.Add(newAddOption);
     }
 
-    public void ChangeCategory(FeatureType type)
+    public void ChangeCategory(FaceFeatureType type)
     {
         foreach (var button in _categoryParent.GetComponentsInChildren<AddMenuCategoryButton>()) {
             if (type != button.Type) button.GetComponent<SelectableItem>().Deselect();

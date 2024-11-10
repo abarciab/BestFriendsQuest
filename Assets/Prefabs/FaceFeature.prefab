@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4090815540154598729}
   - component: {fileID: 3531488635571853560}
   m_Layer: 0
-  m_Name: feature
+  m_Name: FaceFeature
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -71,16 +71,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _data:
     Name: 
+    Type: 0
+    SubType: 0
     Icon: {fileID: 0}
     Texture: {fileID: 0}
-    HoriLimits: {x: 0, y: 0}
-    VertLimits: {x: 0, y: 0}
-    SizeLimits: {x: 0, y: 0}
+    ColorMask: {fileID: 0}
+    HoriLimits: {x: -0.5, y: 0.5}
+    VertLimits: {x: -0.6, y: 0.75}
+    SizeLimits: {x: 0.3, y: 0.9}
     Mirror: 0
-  MirroredFeature: {fileID: 0}
   _manualSet: 0
   _horiPos: 0.5
   _vertPos: 0.5
   _size: 0.5
   _angle: 0.5
+  _color: {r: 0, g: 0, b: 0, a: 0}
   _refMaterial: {fileID: 2100000, guid: 33580f8214de6b1439e58b7633cee4ac, type: 2}
+  IsMirror: 0

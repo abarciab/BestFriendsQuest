@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//this is just move menu controller for face menu - rename later
 public class MoveMenuController : MonoBehaviour
 {
     public FaceFeatureController _faceController;

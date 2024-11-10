@@ -2,11 +2,12 @@ using MyBox;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro.EditorUtilities;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
 [RequireComponent(typeof(DecalProjector))]
-public class FacialFeature : MonoBehaviour
+public class FacialFeature : MonoBehaviour, IFeatureObj
 {
     [SerializeField] private FeatureData _data;
     [SerializeField] private bool _manualSet;
@@ -15,7 +16,6 @@ public class FacialFeature : MonoBehaviour
     [SerializeField, ConditionalField(nameof(_manualSet)), Range(0, 1)] private float _size = 0.5f; 
     [SerializeField, ConditionalField(nameof(_manualSet)), Range(0, 1)] private float _angle = 0.5f;
     [SerializeField, ConditionalField(nameof(_manualSet))] private Color _color;
-
 
     [Header("Misc")]
     [SerializeField] private Material _refMaterial;
@@ -27,6 +27,8 @@ public class FacialFeature : MonoBehaviour
 
     public FeatureData GetData() => new FeatureData(_data);
     public Vector4 GetValues() => new Vector4(_horiPos, _vertPos, _size, _angle);
+    public Sprite GetIcon() => GetData().Icon;
+    bool IFeatureObj.IsMirror() => GetData().Mirror;
 
     private void OnValidate()
     {
@@ -248,4 +250,5 @@ public class FacialFeature : MonoBehaviour
         var controller = GetComponentInParent<FaceFeatureController>();
         controller.SaveFeature(_data);
     }
+
 }

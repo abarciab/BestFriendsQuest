@@ -4,16 +4,18 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum FeatureType {BROWS, EYES, NOSE, LIPS, MISC}
+public enum FaceFeatureType {BROWS, EYES, NOSE, LIPS, MISC}
+public enum FeatureType { FACE, HAIR}
 
 [System.Serializable]
 public class FeatureData
 {
     [HideInInspector] public string Name;
     public FeatureType Type;
+    [ConditionalField(nameof(Type), false, FeatureType.FACE)]public FaceFeatureType SubType;
 
     public Sprite Icon;
-    public Texture2D Texture;
+    [ConditionalField(nameof(Type), false, FeatureType.FACE)] public Texture2D Texture;
     public Texture2D ColorMask;
 
     public Vector2 HoriLimits;
@@ -26,6 +28,7 @@ public class FeatureData
     {
         Name = o.Name;
         Type = o.Type;
+        SubType = o.SubType;
         Icon = o.Icon;
         Texture = o.Texture;
         ColorMask = o.ColorMask;
@@ -36,19 +39,22 @@ public class FeatureData
     }
 }
 
-public class FaceFeatureController : MonoBehaviour
+public class FaceFeatureController : MonoBehaviour, IFeatureController
 {
     [SerializeField] private GameObject _featurePrefab;
     [SerializeField] private Transform _featureParent;
     public List<FacialFeature> CurrentFeatures = new List<FacialFeature>();
-    public List<FeatureData> AllFeatures = new List<FeatureData>();
+    [SerializeField] private List<FeatureData> _allFeatures = new List<FeatureData>();
     [SerializeField] private int _selected;
 
     public FacialFeature Current => CurrentFeatures[_selected];
+    public List<IFeatureObj> GetAllFeatures() => CurrentFeatures.Cast<IFeatureObj>().ToList();
+    public List<FeatureData> GetAllOptions() => _allFeatures;
+    public void CopySettingsToCurrent(object original) => original.As<FacialFeature>().CopyTo(Current);
 
     private void OnValidate()
     {
-        foreach (var f in AllFeatures) f.Name = f.Texture.name;
+        foreach (var f in _allFeatures) f.Name = f.Texture.name;
     }
 
     private void Start()
@@ -56,17 +62,13 @@ public class FaceFeatureController : MonoBehaviour
         CurrentFeatures = GetComponentsInChildren<FacialFeature>().Where(x => !x.IsMirror).ToList();
     }
 
-    public void CopySettingsToCurrent(FacialFeature feature)
-    {
-        feature.CopyTo(Current);
-    }
 
     public void SetCurrentColor(Color color)
     {
         Current.SetColor(color);
     }
 
-    public FacialFeature AddFeature(FeatureData data)
+    public IFeatureObj AddFeature(FeatureData data)
     {
         var newFeature = Instantiate(_featurePrefab, _featureParent).GetComponent<FacialFeature>();
         newFeature.transform.SetAsFirstSibling();
@@ -75,14 +77,16 @@ public class FaceFeatureController : MonoBehaviour
         return newFeature;
     }
 
-    public void Delete(FacialFeature feature)
+    public void Delete(object featureGeneric)
     {
+        var feature = featureGeneric.As<FacialFeature>();
         CurrentFeatures.Remove(feature);
         Destroy(feature.gameObject);
     }
 
-    public void Select(FacialFeature feature)
+    public void Select(object featureGeneric)
     {
+        var feature = featureGeneric.As<FacialFeature>();
         for (int i = 0; i < CurrentFeatures.Count; i++) {
             if (CurrentFeatures[i] == feature) _selected = i;
         }
@@ -93,13 +97,14 @@ public class FaceFeatureController : MonoBehaviour
         data.Name = data.Texture.name;
 
         bool found = false;
-        for (int i = 0; i < AllFeatures.Count; i++) {
-            if (AllFeatures[i].Texture == data.Texture) {
-                AllFeatures[i] = data;
+        for (int i = 0; i < _allFeatures.Count; i++) {
+            if (_allFeatures[i].Texture == data.Texture) {
+                _allFeatures[i] = data;
                 found = true;
             }
         }
-        if (!found) AllFeatures.Add(data);
+        if (!found) _allFeatures.Add(data);
         Utils.SetDirty(this);
     }
+
 }
