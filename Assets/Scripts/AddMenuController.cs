@@ -27,7 +27,7 @@ public class AddMenuController : MonoBehaviour
         _spawnedAddOptions.Add(newAddOption);
     }
 
-    public void ChangeCategory(FaceFeatureType type)
+    public void ChangeCategory(FeatureSubType type)
     {
         foreach (var button in _categoryParent.GetComponentsInChildren<AddMenuCategoryButton>()) {
             if (type != button.Type) button.GetComponent<SelectableItem>().Deselect();
@@ -37,5 +37,4 @@ public class AddMenuController : MonoBehaviour
             option.gameObject.SetActive(option.Type == type);
         }
     }
-
 }

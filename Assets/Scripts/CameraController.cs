@@ -15,6 +15,7 @@ public class CameraController : MonoBehaviour
         if (!EventSystem.current.IsPointerOverGameObject()) Scroll();
     }
 
+    //update to scroll away from the character, not just back
     private void Scroll()
     {
         float delta = Input.mouseScrollDelta.y;

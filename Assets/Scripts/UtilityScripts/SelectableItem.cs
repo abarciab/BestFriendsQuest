@@ -193,9 +193,9 @@ public class SelectableItem : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
         _hasBeenSelected = true;
         if (_printSelections) print(gameObject.name + " selected");
-        OnSelect.Invoke();
         if (_selectSound && _selectSound.Instantialized) _selectSound.Play(); 
         SetState(true);
+        OnSelect.Invoke();
     }
     public void Deselect()
     {

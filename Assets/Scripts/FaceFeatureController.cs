@@ -4,40 +4,6 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum FaceFeatureType {BROWS, EYES, NOSE, LIPS, MISC}
-public enum FeatureType { FACE, HAIR}
-
-[System.Serializable]
-public class FeatureData
-{
-    [HideInInspector] public string Name;
-    public FeatureType Type;
-    [ConditionalField(nameof(Type), false, FeatureType.FACE)]public FaceFeatureType SubType;
-
-    public Sprite Icon;
-    [ConditionalField(nameof(Type), false, FeatureType.FACE)] public Texture2D Texture;
-    public Texture2D ColorMask;
-
-    public Vector2 HoriLimits;
-    public Vector2 VertLimits;
-    public Vector2 SizeLimits;
-    public bool Mirror;
-
-    public FeatureData() {}
-    public FeatureData(FeatureData o)
-    {
-        Name = o.Name;
-        Type = o.Type;
-        SubType = o.SubType;
-        Icon = o.Icon;
-        Texture = o.Texture;
-        ColorMask = o.ColorMask;
-        HoriLimits = o.HoriLimits;
-        VertLimits = o.VertLimits;
-        SizeLimits = o.SizeLimits;
-        Mirror = o.Mirror;
-    }
-}
 
 public class FaceFeatureController : MonoBehaviour, IFeatureController
 {
@@ -47,10 +13,12 @@ public class FaceFeatureController : MonoBehaviour, IFeatureController
     [SerializeField] private List<FeatureData> _allFeatures = new List<FeatureData>();
     [SerializeField] private int _selected;
 
-    public FacialFeature Current => CurrentFeatures[_selected];
-    public List<IFeatureObj> GetAllFeatures() => CurrentFeatures.Cast<IFeatureObj>().ToList();
+    public bool HasCurrent() => CurrentFeatures.Count > 0;
+    public FacialFeature Current => _selected < CurrentFeatures.Count ? CurrentFeatures[_selected] : CurrentFeatures[0];
+    public List<FeatureObj> GetCurrentFeatures() => CurrentFeatures.Cast<FeatureObj>().ToList();
     public List<FeatureData> GetAllOptions() => _allFeatures;
-    public void CopySettingsToCurrent(object original) => original.As<FacialFeature>().CopyTo(Current);
+    public void CopySettingsToCurrent(FeatureObj original) => original.CopyTo(Current);
+    public FeatureObj GetCurrent() => Current;
 
     private void OnValidate()
     {
@@ -59,7 +27,7 @@ public class FaceFeatureController : MonoBehaviour, IFeatureController
 
     private void Start()
     { 
-        CurrentFeatures = GetComponentsInChildren<FacialFeature>().Where(x => !x.IsMirror).ToList();
+        CurrentFeatures = GetComponentsInChildren<FacialFeature>().Where(x => !x.IsMirroredVersion).ToList();
     }
 
 
@@ -68,7 +36,7 @@ public class FaceFeatureController : MonoBehaviour, IFeatureController
         Current.SetColor(color);
     }
 
-    public IFeatureObj AddFeature(FeatureData data)
+    public FeatureObj AddFeature(FeatureData data)
     {
         var newFeature = Instantiate(_featurePrefab, _featureParent).GetComponent<FacialFeature>();
         newFeature.transform.SetAsFirstSibling();
@@ -77,16 +45,16 @@ public class FaceFeatureController : MonoBehaviour, IFeatureController
         return newFeature;
     }
 
-    public void Delete(object featureGeneric)
+    public void Delete(FeatureObj featureGeneric)
     {
-        var feature = featureGeneric.As<FacialFeature>();
+        var feature = (FacialFeature) featureGeneric;
         CurrentFeatures.Remove(feature);
         Destroy(feature.gameObject);
     }
 
-    public void Select(object featureGeneric)
+    public void Select(FeatureObj featureGeneric)
     {
-        var feature = featureGeneric.As<FacialFeature>();
+        var feature = (FacialFeature) featureGeneric;
         for (int i = 0; i < CurrentFeatures.Count; i++) {
             if (CurrentFeatures[i] == feature) _selected = i;
         }
@@ -106,5 +74,4 @@ public class FaceFeatureController : MonoBehaviour, IFeatureController
         if (!found) _allFeatures.Add(data);
         Utils.SetDirty(this);
     }
-
 }

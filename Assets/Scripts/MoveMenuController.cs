@@ -1,21 +1,24 @@
+using MyBox;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-//this is just move menu controller for face menu - rename later
 public class MoveMenuController : MonoBehaviour
 {
-    public FaceFeatureController _faceController;
+    [SerializeField, OverrideLabel("feature controller")] private GameObject _controllerObj;
+    private IFeatureController _controller;
     [SerializeField] private Slider _horiSlider;
     [SerializeField] private Slider _vertSlider;
     [SerializeField] private Slider _sizeSlider;
     [SerializeField] private Slider _angleSlider;
-    private FacialFeature _current;
+    private FeatureObj _current;
 
     private void OnEnable()
     {
-        _current = _faceController.Current;
+        _controller ??= _controllerObj.GetComponent<IFeatureController>(); 
+        _current = _controller.GetCurrent();
+
         var currentValues = _current.GetValues();
         _horiSlider.value = currentValues.x;
         _vertSlider.value = currentValues.y;
@@ -27,4 +30,5 @@ public class MoveMenuController : MonoBehaviour
     public void SetHori() => _current.SetHori(_horiSlider.value);
     public void SetSize() => _current.SetSize(_sizeSlider.value);
     public void SetAngle() => _current.SetAngle(_angleSlider.value);
+    public void SetMirror(int type) => _current.SetMirror((MirrorType) type);
 }

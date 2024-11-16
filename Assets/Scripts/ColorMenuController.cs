@@ -29,13 +29,15 @@ public class ColorMenuController : MonoBehaviour
 
     private Texture2D _hueTex;
     private Texture2D _satValTex;
+    private bool _invoke;
 
     private void Start()
     {
         CreateTextures();
         _selector.enabled = false;
+        _invoke = false;
         UpdateHue();
-        SetFromHexCode(_defaultColor.ToHex());
+        _invoke = true;
     }
 
     private void Update()
@@ -72,7 +74,7 @@ public class ColorMenuController : MonoBehaviour
             _hexInput.UpdateText(_currentColor.ToHex());
         }
         _currentColorImg.color = _currentColor;
-        _onChangeColor.Invoke(_currentColor);
+        if (_invoke) _onChangeColor.Invoke(_currentColor);
     }
 
     private void StopSelecting()

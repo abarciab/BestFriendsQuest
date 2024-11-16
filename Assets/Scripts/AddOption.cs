@@ -8,7 +8,7 @@ public class AddOption : MonoBehaviour
     [SerializeField] private Image _preview;
     private FeatureData _data;
 
-    public FaceFeatureType Type => _data.SubType;
+    public FeatureSubType Type => _data.SubType;
 
     public void Initialize(FeatureData data)
     {

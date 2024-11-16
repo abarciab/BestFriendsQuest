@@ -7,20 +7,18 @@ using UnityEngine.UI;
 public class Layer : MonoBehaviour
 {
     private LayersMenuController _controller;
-    [SerializeField] private SelectableItem _mirrorCheckBox;
     [SerializeField] private Image _preview;
-    private IFeatureObj _feature;
+    private FeatureObj _feature;
 
     private void Start()
     {
         _controller = GetComponentInParent<LayersMenuController>();
     }
 
-    public void Initialize(IFeatureObj feature)
+    public void Initialize(FeatureObj feature)
     {
-        _feature = feature.As<IFeatureObj>();
+        _feature = feature;
         _preview.sprite = _feature.GetIcon();
-        if (_feature.IsMirror()) _mirrorCheckBox.Select();
     }
 
     public void Select()
@@ -32,11 +30,6 @@ public class Layer : MonoBehaviour
     public void Delete()
     {
         _controller.DeleteFeature(this, _feature);
-    }
-
-    public void SetMirror(bool mirrored)
-    {
-        _feature.SetMirror(mirrored);
     }
 
     public void Duplicate()

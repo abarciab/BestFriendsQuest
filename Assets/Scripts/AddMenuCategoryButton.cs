@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AddMenuCategoryButton : MonoBehaviour
 {
-    public FaceFeatureType Type;
+    public FeatureSubType Type;
 
     public void Select()
     {

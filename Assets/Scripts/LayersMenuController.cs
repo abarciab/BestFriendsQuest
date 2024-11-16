@@ -11,6 +11,7 @@ public class LayersMenuController : MonoBehaviour
     [Header("Main")]
     [SerializeField] private GameObject _layerPrefab;
     [SerializeField] private Transform _layerListParent;
+    public bool HasCurrent => _featureController.HasCurrent();
 
     private List<Layer> _spawnedLayers = new List<Layer>();
 
@@ -22,11 +23,12 @@ public class LayersMenuController : MonoBehaviour
         _addMenu.gameObject.SetActive(false);
     }
 
-    public void Duplicate(IFeatureObj original)
+    public FeatureObj GetCurrent() => _featureController.GetCurrent();
+
+    public void Duplicate(FeatureObj original)
     {
         AddFeature(original.GetData());
         _featureController.CopySettingsToCurrent(original);
-        _spawnedLayers[^1].SetMirror(original.GetData().Mirror);
     }
 
     public void AddFeature(FeatureData data)
@@ -48,7 +50,7 @@ public class LayersMenuController : MonoBehaviour
         _addMenu.BuildAddList(_featureController);
     }
 
-    public void DeleteFeature(Layer layer, object feature)
+    public void DeleteFeature(Layer layer, FeatureObj feature)
     {
         _spawnedLayers.Remove(layer);
         Destroy(layer.gameObject);
@@ -60,10 +62,10 @@ public class LayersMenuController : MonoBehaviour
         foreach (var l in _spawnedLayers) Destroy(l.gameObject);
         _spawnedLayers.Clear();
 
-        foreach (var feature in _featureController.GetAllFeatures()) AddLayer(feature);
+        foreach (var feature in _featureController.GetCurrentFeatures()) AddLayer(feature);
     }
 
-    private void AddLayer(IFeatureObj feature)
+    private void AddLayer(FeatureObj feature)
     {
         var newLayer = Instantiate(_layerPrefab, _layerListParent).GetComponent<Layer>();
         newLayer.transform.SetAsFirstSibling();
@@ -71,7 +73,7 @@ public class LayersMenuController : MonoBehaviour
         _spawnedLayers.Add(newLayer);
     }
 
-    public void Select(int siblingIndex, object feature)
+    public void Select(int siblingIndex, FeatureObj feature)
     {
         foreach (var l in _spawnedLayers) l.GetComponent<SelectableItem>().SetState(l.transform.GetSiblingIndex() == siblingIndex);
         _featureController.Select(feature);

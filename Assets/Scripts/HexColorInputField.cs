@@ -46,7 +46,6 @@ public class HexColorInputField : MonoBehaviour
             while (current.Length < 6) current = "0" + current;
             current = "#" + current;
             _controller.SetFromHexCode(current);
-            print("set from hex. hex: " + current + ", old: " + old);
         }
     }
 
