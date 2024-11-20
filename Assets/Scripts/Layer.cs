@@ -10,6 +10,8 @@ public class Layer : MonoBehaviour
     [SerializeField] private Image _preview;
     private FeatureObj _feature;
 
+    public FeatureObj GetFeature() => _feature;
+
     private void Start()
     {
         _controller = GetComponentInParent<LayersMenuController>();

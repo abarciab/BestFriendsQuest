@@ -15,12 +15,12 @@ MonoBehaviour:
   Type: 0
   Unpauseable: 0
   _clips:
-  - Name: uiHover
-    Clip: {fileID: 8300000, guid: 64b38ac39ce47a448bad0f869eb5d23d, type: 3}
+  - Name: buttonHover
+    Clip: {fileID: 8300000, guid: 0caa4c07c7474064b87d9df1b8433f36, type: 3}
     Looping: 0
-  _volume: 0.645
-  _pitch: 0.757
+  _volume: 0.239
+  _pitch: 0.6
   _randomizePitch: 1
-  _pitchRandomizeAmount: 0.116
+  _pitchRandomizeAmount: 0.069
   AudioSource: {fileID: 0}
   Instantialized: 0

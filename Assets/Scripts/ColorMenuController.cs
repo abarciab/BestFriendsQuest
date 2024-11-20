@@ -16,10 +16,21 @@ public class ColorMenuController : MonoBehaviour
     [SerializeField] private Color _defaultColor;
     [SerializeField] private UnityEvent<Color> _onChangeColor;
 
+    [Header("Modes")]
+    [SerializeField] private float _gridResolution = 6;
+    [SerializeField] private Transform _squaresParent;
+    [SerializeField] private Material _unselectedSquare;
+    [SerializeField] private Material _selectedSquare;
+    [SerializeField] private GameObject _gridParent;
+    [SerializeField] private GameObject _fieldOutline;
+    [SerializeField] private GameObject _hexSectionParent;
 
-    private float _currentHue = 0.5f;
-    private float _currentSat = 0.5f;
-    private float _currentVal = 0.5f;
+    private float _hue = 0.5f;
+    private float _sat = 0.5f;
+    private float _val = 0.5f;
+    private float _currentHue { get { return _hue; } set { _hue = value; } }
+    private float _currentSat { get { return _sat; } set { _sat = ClampToGrid(value); } }
+    private float _currentVal { get { return _val; } set { _val = ClampToGrid(value); } }
 
     private bool _inputingHex;
 
@@ -30,6 +41,12 @@ public class ColorMenuController : MonoBehaviour
     private Texture2D _hueTex;
     private Texture2D _satValTex;
     private bool _invoke;
+    private bool _advanced;
+
+    private void OnEnable()
+    {
+        _selector.FollowMouse = _advanced;
+    }
 
     private void Start()
     {
@@ -48,11 +65,28 @@ public class ColorMenuController : MonoBehaviour
         } 
     }
 
+    private float ClampToGrid(float inputValue)
+    {
+        if (_advanced) return inputValue;
+        float fraction = 1f / _gridResolution;
+        var output = Mathf.Round(inputValue / fraction) * fraction;
+        return output;
+    }
+
+    public void SetMode(bool advanced)
+    {
+        _selector.FollowMouse = advanced;
+        _hexSectionParent.SetActive(advanced);
+        _fieldOutline.SetActive(advanced);
+        _gridParent.SetActive(!advanced);
+        _advanced = advanced;
+    }
+
     public void SetFromHexCode(string hex)
     {
         _inputingHex = true;
         ColorUtility.TryParseHtmlString(hex, out var rgb);
-        Color.RGBToHSV(rgb, out _currentHue, out _currentSat, out _currentVal);
+        Color.RGBToHSV(rgb, out _hue, out _sat, out _val);
         _hueSlider.value = _currentHue;
         _selector.SetPosition(new Vector2(_currentSat, _currentVal));
         UpdateCurrentColor();
@@ -69,12 +103,34 @@ public class ColorMenuController : MonoBehaviour
     {
         if (!_inputingHex) {
             var pos = _selector.GetNormalizedPositionFromCenter();
+            if (!_advanced) {
+                pos.x = ClampToGrid(pos.x);
+                pos.y = ClampToGrid(pos.y);
+                _selector.SetPosition(pos);
+                SelectClosestGridSquare();
+            }
+
             _currentSat = pos.x;
             _currentVal = pos.y;
             _hexInput.UpdateText(_currentColor.ToHex());
         }
         _currentColorImg.color = _currentColor;
         if (_invoke) _onChangeColor.Invoke(_currentColor);
+    }
+
+    private void SelectClosestGridSquare()
+    {
+        var shortestDist = Mathf.Infinity;
+        Transform bestSquare = null;
+        foreach (Transform child in _squaresParent) {
+            var dist = (child.position - _selector.transform.position).sqrMagnitude;
+            if (dist < shortestDist) {
+                bestSquare = child;
+                shortestDist = dist;
+            }
+            child.GetComponent<SelectableItem>().Deselect();
+        }
+        bestSquare.GetComponent<SelectableItem>().Select();
     }
 
     private void StopSelecting()

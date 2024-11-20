@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 76481456806815689}
   - component: {fileID: 4806866451160112011}
+  - component: {fileID: 8743020447479227852}
   m_Layer: 5
   m_Name: topLevelButton
   m_TagString: Untagged
@@ -37,7 +38,7 @@ RectTransform:
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &4806866451160112011
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,10 +65,15 @@ MonoBehaviour:
   - Name: backing
     _type: 0
     _target: {fileID: 4270617570230494675}
-    _normalColor: {r: 0.9433962, g: 0.8876478, b: 0.7609469, a: 1}
+    _useMaterials: 1
+    _normalColor: {r: 1, g: 0.94809455, b: 0.5896226, a: 1}
     _hoveredColor: {r: 0.9433962, g: 0.7737296, b: 0.20914915, a: 1}
     _selectedColor: {r: 0.8490566, g: 0.50293356, b: 0.26032397, a: 1}
     _disabledColor: {r: 1, g: 1, b: 1, a: 1}
+    _normalMat: {fileID: 2100000, guid: 63dcab7f8f0a12f4fb6e6be07d815c05, type: 2}
+    _hoveredMat: {fileID: 2100000, guid: d942fec5482c71046988e09d0577f27b, type: 2}
+    _selectedMat: {fileID: 2100000, guid: 0f3992b290d59b14691586564ff58877, type: 2}
+    _disabledMat: {fileID: 0}
     _obj: {fileID: 0}
     _normalState: 0
     _hoveredState: 0
@@ -78,8 +84,18 @@ MonoBehaviour:
     _hoveredAlpha: 0.6
     _selectedAlpha: 1
     _disabledAlpha: 0.2
-  _hasAnimation: 0
-  _animator: {fileID: 0}
+    _spriteTarget: {fileID: 0}
+    _normalSprite: {fileID: 0}
+    _hoveredSprite: {fileID: 0}
+    _selectedSprite: {fileID: 0}
+    _disabledSprite: {fileID: 0}
+    _showGraphicSettings: 1
+    _showGraphicColorSettings: 0
+    _showGOSettings: 0
+    _showGroupSettings: 0
+    _showSpriteSettings: 0
+  _hasAnimation: 1
+  _animator: {fileID: 8743020447479227852}
   _animationBool: Selected
   _hoverSound: {fileID: 11400000, guid: 4ba078087b4262248a49dc212ae8bee6, type: 2}
   _selectSound: {fileID: 11400000, guid: 937ddfdca0a09a343831e509caa6a123, type: 2}
@@ -110,6 +126,27 @@ MonoBehaviour:
       m_Calls: []
   _printSelections: 0
   _disabled: 0
+--- !u!95 &8743020447479227852
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2392490168109237893}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f712f1b83b720b444aec8af8616d65c0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3459459699172554030
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,7 +280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 7939e88ed59e0054085d60db65ef17e8, type: 2}
+  m_Material: {fileID: 2100000, guid: 63dcab7f8f0a12f4fb6e6be07d815c05, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}

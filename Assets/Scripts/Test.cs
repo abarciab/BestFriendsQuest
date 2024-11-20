@@ -8,6 +8,5 @@ public class Test : MonoBehaviour
 {
     private void OnDisable()
     {
-        print("disabled");
     }
 }

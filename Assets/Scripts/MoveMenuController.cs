@@ -12,6 +12,7 @@ public class MoveMenuController : MonoBehaviour
     [SerializeField] private Slider _vertSlider;
     [SerializeField] private Slider _sizeSlider;
     [SerializeField] private Slider _angleSlider;
+    [SerializeField] private List<SelectableItem> _mirrorOptions = new List<SelectableItem>();
     private FeatureObj _current;
 
     private void OnEnable()
@@ -24,6 +25,8 @@ public class MoveMenuController : MonoBehaviour
         _vertSlider.value = currentValues.y;
         _sizeSlider.value = currentValues.z;
         _angleSlider.value = currentValues.w;
+
+        _mirrorOptions[(int)_current.GetData().Mirror].Select();
     }
 
     public void SetVert() => _current.SetVert(_vertSlider.value);

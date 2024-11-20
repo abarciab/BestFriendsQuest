@@ -15,12 +15,12 @@ MonoBehaviour:
   Type: 0
   Unpauseable: 0
   _clips:
-  - Name: click
-    Clip: {fileID: 8300000, guid: b2f98eb196f92f64c8ceca0527f00d45, type: 3}
+  - Name: buttonPress
+    Clip: {fileID: 8300000, guid: c36acb1f8cbbd364bb1402e6721293a4, type: 3}
     Looping: 0
   _volume: 1
-  _pitch: 1
-  _randomizePitch: 0
-  _pitchRandomizeAmount: 0
+  _pitch: 0.88
+  _randomizePitch: 1
+  _pitchRandomizeAmount: 0.057
   AudioSource: {fileID: 0}
   Instantialized: 0

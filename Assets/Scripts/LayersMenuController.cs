@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class LayersMenuController : MonoBehaviour
 {
+    [SerializeField] private List<SelectableItem> _otherTabButtons = new List<SelectableItem>();
     [SerializeField, OverrideLabel("Feature Controller")] private GameObject _featureControllerMB;
     [SerializeField] private GameObject _main;
     [SerializeField] private AddMenuController _addMenu;
@@ -21,6 +22,7 @@ public class LayersMenuController : MonoBehaviour
     {
         _main.SetActive(true);
         _addMenu.gameObject.SetActive(false);
+        SelectInitial();
     }
 
     public FeatureObj GetCurrent() => _featureController.GetCurrent();
@@ -48,6 +50,24 @@ public class LayersMenuController : MonoBehaviour
         _featureController = _featureControllerMB.GetComponent<IFeatureController>();
         BuildLayerList();
         _addMenu.BuildAddList(_featureController);
+        UpdateTabButtons();
+        SelectInitial();
+    }
+
+    private void SelectInitial()
+    {
+        if (_featureController == null) return;
+        foreach (var layer in _spawnedLayers) {
+            if (layer.GetFeature() == _featureController.GetCurrent()) layer.GetComponent<SelectableItem>().Select();
+        }
+    }
+
+    private void UpdateTabButtons()
+    {
+        foreach (var b in _otherTabButtons) {
+            b.gameObject.SetActive(_featureController.HasCurrent());
+            b.SetEnabled(_featureController.HasCurrent());
+        }
     }
 
     public void DeleteFeature(Layer layer, FeatureObj feature)
@@ -55,6 +75,7 @@ public class LayersMenuController : MonoBehaviour
         _spawnedLayers.Remove(layer);
         Destroy(layer.gameObject);
         _featureController.Delete(feature);
+        UpdateTabButtons();
     }
 
     private void BuildLayerList()
@@ -71,6 +92,7 @@ public class LayersMenuController : MonoBehaviour
         newLayer.transform.SetAsFirstSibling();
         newLayer.Initialize(feature);
         _spawnedLayers.Add(newLayer);
+        UpdateTabButtons();
     }
 
     public void Select(int siblingIndex, FeatureObj feature)
