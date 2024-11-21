@@ -15,8 +15,8 @@ public class HairColorMenu : MonoBehaviour
     private void OnEnable()
     {
         if (!_controller) _controller = GetComponent<ColorMenuController>();
-        _controller.SetFromHexCode(_hairController.Current.GetColor().ToHex());
-        _matching = _hairController.Current.GetData().MatchColor;
+        _controller.SetFromHexCode(_hairController.Current.GetSettings().Color.ToHex());
+        _matching = _hairController.Current.GetSettings().MatchColor;
         _matchCheckBox.SetCheckedVisual(_matching);
 
     }

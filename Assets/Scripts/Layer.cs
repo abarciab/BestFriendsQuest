@@ -20,7 +20,7 @@ public class Layer : MonoBehaviour
     public void Initialize(FeatureObj feature)
     {
         _feature = feature;
-        _preview.sprite = _feature.GetIcon();
+        _preview.sprite = _feature.GetData().Icon;
     }
 
     public void Select()

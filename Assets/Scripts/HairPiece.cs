@@ -25,7 +25,7 @@ public class HairPiece : FeatureObj
 
     public void SetMatch(bool match)
     {
-        Data.MatchColor = match;
+        Settings.MatchColor = match;
     }
 
     protected override void SpawnMirror()
@@ -37,7 +37,7 @@ public class HairPiece : FeatureObj
 
     protected override void UpdateDisplay()
     {
-        _modelParent.transform.localScale = Vector3.one * Mathf.Lerp(Data.SizeLimits.x, Data.SizeLimits.y, Size);
+        _modelParent.transform.localScale = Vector3.one * Mathf.Lerp(Data.SizeLimits.x, Data.SizeLimits.y, Settings.Size);
         UpdateColors();
 
         base.UpdateDisplay();
@@ -46,7 +46,7 @@ public class HairPiece : FeatureObj
             AlignWithTarget();
             AlignToHeadNormal();
 
-            _modelParent.GetChild(0).transform.localEulerAngles = Vector3.up * Mathf.Lerp(-180, 180, Angle);
+            _modelParent.GetChild(0).transform.localEulerAngles = Vector3.up * Mathf.Lerp(-180, 180, Settings.Angle);
 
 
             if (_mirroredFeature) _mirroredFeature.SetMirrorRot(transform, _modelParent);
@@ -56,7 +56,7 @@ public class HairPiece : FeatureObj
     private void UpdateColors()
     {
         var renderers = _modelParent.GetComponentsInChildren<MeshRenderer>();
-        foreach (var r in renderers) r.material.color = Color;
+        foreach (var r in renderers) r.material.color = Settings.Color;
     }
 
     public void SetMirrorRot(Transform _nonMirroredPiece, Transform modelParent)
@@ -82,7 +82,7 @@ public class HairPiece : FeatureObj
 
     private void AlignWithTarget()
     {
-        var targetPos =  _controller.GetTargetPosition(Hori, Vert);
+        var targetPos =  _controller.GetTargetPosition(Settings.Hori, Settings.Vert);
         transform.LookAt(targetPos);
     }
 

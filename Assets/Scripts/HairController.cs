@@ -27,7 +27,7 @@ public class HairController : MonoBehaviour, IFeatureController
         HairColor = Color.green;
         _currentPieces = GetComponentsInChildren<HairPiece>().Where(x => !x.IsMirroredVersion).ToList();
         foreach (var c in _currentPieces) c.Initialize(this);
-        foreach (var c in _currentPieces) if (c.GetData().MatchColor) c.SetColor(HairColor);
+        foreach (var c in _currentPieces) if (c.GetSettings().MatchColor) c.SetColor(HairColor);
     }
 
     public void LoadFromString(string saveString)
@@ -66,7 +66,7 @@ public class HairController : MonoBehaviour, IFeatureController
     public void SetHairColor(Color newColor)
     {
         foreach (var h in _currentPieces) {
-            if (h.GetData().MatchColor) h.SetColor(newColor);
+            if (h.GetSettings().MatchColor) h.SetColor(newColor);
         }
         HairColor = newColor;
     }
@@ -119,7 +119,7 @@ public class HairController : MonoBehaviour, IFeatureController
         newFeature.Initialize(data, this);
         _currentPieces.Add(newFeature);
         _currentIndex = _currentPieces.Count - 1;
-        if (newFeature.GetData().MatchColor) newFeature.SetColor(HairColor);
+        if (newFeature.GetSettings().MatchColor) newFeature.SetColor(HairColor);
         return newFeature;
     }
 

@@ -20,18 +20,18 @@ public class MoveMenuController : MonoBehaviour
         _controller ??= _controllerObj.GetComponent<IFeatureController>(); 
         _current = _controller.GetCurrent();
 
-        var currentValues = _current.GetValues();
-        _horiSlider.value = currentValues.x;
-        _vertSlider.value = currentValues.y;
-        _sizeSlider.value = currentValues.z;
-        _angleSlider.value = currentValues.w;
+        var currentValues = _current.GetSettings();
+        _horiSlider.value = currentValues.Hori;
+        _vertSlider.value = currentValues.Vert;
+        _sizeSlider.value = currentValues.Size;
+        _angleSlider.value = currentValues.Angle;
 
-        _mirrorOptions[(int)_current.GetData().Mirror].Select();
+        _mirrorOptions[(int)_current.GetSettings().Mirror].Select();
     }
 
     public void SetVert() => _current.SetVert(_vertSlider.value);
     public void SetHori() => _current.SetHori(_horiSlider.value);
     public void SetSize() => _current.SetSize(_sizeSlider.value);
     public void SetAngle() => _current.SetAngle(_angleSlider.value);
-    public void SetMirror(int type) => _current.SetMirror((MirrorType) type);
+    public void SetMirror(int type) => _current.SetMirrorTpe((MirrorType) type);
 }

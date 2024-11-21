@@ -19,7 +19,6 @@ public class FeatureData
     [ConditionalField(nameof(Type), false, FeatureType.FACE)] public Texture2D ColorMask;
 
     [ConditionalField(nameof(Type), false, FeatureType.HAIR)] public Mesh Mesh;
-    [ConditionalField(nameof(Type), false, FeatureType.HAIR)] public bool MatchColor = true;
 
     [ConditionalField(nameof(Type), false, FeatureType.EAR)] public GameObject EarPrefab;
     [ConditionalField(nameof(Type), false, FeatureType.EAR)] public Vector2 AngleLimits;
@@ -27,7 +26,10 @@ public class FeatureData
     [ConditionalField(nameof(Type), true, FeatureType.HAIR)] public Vector2 HoriLimits;
     [ConditionalField(nameof(Type), true, FeatureType.HAIR)] public Vector2 VertLimits;
     public Vector2 SizeLimits;
-    public MirrorType Mirror;
+
+    [Header("Defaults")]
+    [SerializeField] private FeatureObjSettings _defaultSettings;
+    public FeatureObjSettings DefaultSettings => _defaultSettings;
 
     public FeatureData() { }
     public FeatureData(FeatureData o)
@@ -41,51 +43,14 @@ public class FeatureData
         ColorMask = o.ColorMask;
 
         Mesh = o.Mesh;
-        MatchColor = o.MatchColor;
 
         EarPrefab = o.EarPrefab;
         AngleLimits = o.AngleLimits;
 
-
         HoriLimits = o.HoriLimits;
         VertLimits = o.VertLimits;
         SizeLimits = o.SizeLimits;
-        Mirror = o.Mirror;
+
+        _defaultSettings = new FeatureObjSettings(o.DefaultSettings);
     }
-
-    public override string ToString()
-    {
-        List<string> list = new List<string>
-        {
-            Name,
-            Type.ToString(),
-            SubType.ToString(),
-            Icon.name,
-            Utils.Vec2String(SizeLimits),
-            Mirror.ToString()
-        };
-
-        if (Type == FeatureType.FACE) {
-            list.Add(Texture.name);
-            list.Add(ColorMask.name);
-        }
-
-        if (Type == FeatureType.HAIR) {
-            list.Add(Mesh.name);
-            list.Add(MatchColor.ToString());
-        }
-        else {
-            list.Add(Utils.Vec2String(HoriLimits));
-            list.Add(Utils.Vec2String(VertLimits));
-        }
-
-        if (Type == FeatureType.EAR) {
-            list.Add(EarPrefab.name);
-            list.Add(Utils.Vec2String(AngleLimits));
-        }
-
-        return string.Join(',', list);
-    }
-
-
 }

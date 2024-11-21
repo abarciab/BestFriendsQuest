@@ -27,7 +27,6 @@ public class FacialFeature : FeatureObj
         
         _projector.material.SetTexture("Base_Map", Data.Texture);
 
-        if (ManualSet) UpdateDisplay();
         if (MirroredFeature && !MirroredFeature.gameObject.name.Contains("Mirror")) MirroredFeature.gameObject.name += " Mirror";
     }
 
@@ -53,7 +52,7 @@ public class FacialFeature : FeatureObj
         Reset();
         Data = data;
         OnValidate();
-        Center();
+        SetAll(data.DefaultSettings);
     }
 
     protected override void UpdateDisplay()
@@ -71,15 +70,15 @@ public class FacialFeature : FeatureObj
 
     private void UpdateAngle()
     {
-        var angle = Mathf.Lerp(-180, 180, Angle);
-        var euler = new Vector3(0, 0, angle);
+        var angle = Mathf.Lerp(-180, 180, Settings.Angle);
+        var euler = new Vector3(0, 0, IsMirroredVersion ? 1 - angle : angle);
         transform.localEulerAngles = euler;
     }
 
     private void UpdateScale()
     {
         var z = _projector.size.z;
-        var newSize = Vector3.one * Mathf.Lerp(Data.SizeLimits.x, Data.SizeLimits.y, Size);
+        var newSize = Vector3.one * Mathf.Lerp(Data.SizeLimits.x, Data.SizeLimits.y, Settings.Size);
         newSize.z = z;
         _projector.size = newSize;
     }
@@ -87,8 +86,8 @@ public class FacialFeature : FeatureObj
     private void UpdatePos()
     {
         var pos = transform.localPosition;
-        pos.x = Mathf.Lerp(Data.HoriLimits.x, Data.HoriLimits.y, Hori);
-        pos.y = Mathf.Lerp(Data.VertLimits.x, Data.VertLimits.y, Vert);
+        pos.x = Mathf.Lerp(Data.HoriLimits.x, Data.HoriLimits.y, IsMirroredVersion ? 1- Settings.Hori :  Settings.Hori);
+        pos.y = Mathf.Lerp(Data.VertLimits.x, Data.VertLimits.y, Settings.Vert);
         transform.localPosition = pos;
     }
 
@@ -97,7 +96,7 @@ public class FacialFeature : FeatureObj
         if (_projector.material == null) MakeNewMaterial();
         _projector.material.SetTexture("_Base_Map", Data.Texture);
         _projector.material.SetTexture("_colorMap", Data.ColorMask);
-        _projector.material.SetColor("_tint", Color);
+        _projector.material.SetColor("_tint", Settings.Color);
         _projector.material.SetInt("_hasColor", Data.ColorMask == null ? 0 : 1);
     }
 
@@ -109,25 +108,14 @@ public class FacialFeature : FeatureObj
         _mirroredFeature.MakeNewMaterial();
     }
 
-    public override void MirroredSet(float h, float v, float s, float a)
+    public override void MirroredSet(FeatureObjSettings settings)
     {
         if (_projector == null) _projector = GetComponent<DecalProjector>();
 
         _projector.uvScale = new Vector2(-1, 1);
         _projector.uvBias = new Vector2(1, 0);
 
-        base.MirroredSet(h, v, s, a);
-    }
-
-    public void SetAll(float hori, float vert, float size, float angle, Color color)
-    {
-        Hori = hori;
-        Vert = vert;
-        Size = size;
-        Angle = angle;
-        Color = color;
-
-        UpdateDisplay();
+        base.MirroredSet(settings);
     }
 
     [ButtonMethod]
@@ -135,7 +123,6 @@ public class FacialFeature : FeatureObj
     {
         Data = new FeatureData();
         OnValidate();
-        Center();
         Utils.SetDirty(this);
     }
 
@@ -153,13 +140,6 @@ public class FacialFeature : FeatureObj
         Data.HoriLimits.y = transform.localPosition.x;
         Data.VertLimits.y = transform.localPosition.y;
         Utils.SetDirty(this);
-    }
-
-    [ButtonMethod]
-    private void Center()
-    {
-        SetAll(0.5f, 0.5f, 0.5f, 0.5f, Color.grey);
-        Utils.SetDirty(transform);
     }
 
     [ButtonMethod]

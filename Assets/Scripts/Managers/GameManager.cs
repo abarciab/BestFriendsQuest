@@ -2,7 +2,8 @@ using MyBox;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using UnityEditor.Experimental.GraphView;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -20,7 +21,21 @@ public class GameManager : MonoBehaviour
     [Header("saving")]
     [SerializeField] private CharacterMetaController _character;
     [SerializeField] private string _saveFileName = "saves.txt";
+    [SerializeField] private TextAsset _wordsFile;
+    [HideInInspector] public Dictionary<int, string> IntToWord = new Dictionary<int, string>();
+    [HideInInspector] public Dictionary<string, int> WordToInt = new Dictionary<string, int>();
     private string _path => Path.Combine(Application.streamingAssetsPath, _saveFileName);
+
+    private void Start()
+    {
+        var words = new HashSet<string>(_wordsFile.text.Split("\n")).ToList();
+        for (int i = 0; i < words.Count; i++) {
+            IntToWord[i] = words[i];
+            WordToInt[words[i]] = i;
+        }
+
+        _fade.Disappear();
+    }
 
     private void Update()
     {
@@ -45,12 +60,6 @@ public class GameManager : MonoBehaviour
     {
         if (Time.timeScale == 0) Resume();
         else Pause();
-    }
-
-
-    private void Start()
-    {
-        _fade.Disappear();
     }
 
     public void Resume()

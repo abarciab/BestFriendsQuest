@@ -5,11 +5,19 @@ using UnityEngine;
 
 public class Ear : FeatureObj
 {
+    private CharacterMetaController _controller;
     private GameObject _model;
 
     private void Start()
     {
         foreach (Transform child in transform) if (child.gameObject != _model) Destroy(child.gameObject);
+        _controller = GetComponentInParent<CharacterMetaController>();
+        if (_model) UpdateDisplay();
+    }
+
+    public override void SetColor(Color color)
+    {
+        base.SetColor(color);
     }
 
     public override void SetAsMirroredVersion()
@@ -24,19 +32,23 @@ public class Ear : FeatureObj
     public void initilize()
     {
         _model = Instantiate(Data.EarPrefab, transform);
+
+        if (!IsMirroredVersion) UpdateMirror();
+
+        SetAll(Data.DefaultSettings);
         UpdateDisplay();
     }
 
     protected override void UpdateDisplay()
     {
         base.UpdateDisplay();
-        if (!_model) return;
-        _model.GetComponentInChildren<MeshRenderer>().materials[0].color = Color;
-        _model.transform.localScale = Vector3.one * Mathf.Lerp(Data.SizeLimits.x, Data.SizeLimits.y, Size);
 
+        if (!_model) return;
+        if (_controller) _model.GetComponentInChildren<MeshRenderer>().materials[0].color = _controller.SkinColor;
+
+        _model.transform.localScale = Vector3.one * Mathf.Lerp(Data.SizeLimits.x, Data.SizeLimits.y, Settings.Size);
         var euler = _model.transform.localEulerAngles;
-        if (IsMirroredVersion) euler.x = Mathf.Lerp(Data.AngleLimits.y, Data.AngleLimits.x, Angle);
-        else euler.x = Mathf.Lerp(Data.AngleLimits.x, Data.AngleLimits.y, Angle);
+        euler.x = Mathf.Lerp(Data.AngleLimits.x, Data.AngleLimits.y, Settings.Angle);
         _model.transform.localEulerAngles = euler;
 
         UpdatePosition();
@@ -46,10 +58,8 @@ public class Ear : FeatureObj
     {
         var pos = _model.transform.localPosition;
 
-        if (IsMirroredVersion) pos.x = Mathf.Lerp(Data.HoriLimits.y, Data.HoriLimits.x, Hori);
-        else pos.x = Mathf.Lerp(Data.HoriLimits.x, Data.HoriLimits.y, Hori);
-
-        pos.y = Mathf.Lerp(Data.VertLimits.x, Data.VertLimits.y, Vert);
+        pos.x = Mathf.Lerp(Data.HoriLimits.x, Data.HoriLimits.y, Settings.Hori);
+        pos.y = Mathf.Lerp(Data.VertLimits.x, Data.VertLimits.y, Settings.Vert);
 
         _model.transform.localPosition = pos;
     }

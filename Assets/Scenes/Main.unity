@@ -977,13 +977,22 @@ MonoBehaviour:
     HoriLimits: {x: -0.9, y: -0.5}
     VertLimits: {x: 0, y: 0.3}
     SizeLimits: {x: 0.1, y: 0.4}
-    Mirror: 1
-  ManualSet: 0
-  Hori: 0.5
-  Vert: 0.5
-  Size: 0.5
-  Angle: 0.5
-  Color: {r: 0, g: 0, b: 1, a: 1}
+    _defaultSettings:
+      Mirror: 1
+      MatchColor: 1
+      Vert: 0.307
+      Hori: 0
+      Size: 0.5
+      Angle: 0.5
+      Color: {r: 0, g: 0, b: 0, a: 0}
+  Settings:
+    Mirror: 0
+    MatchColor: 1
+    Vert: 0.5
+    Hori: 0.5
+    Size: 0.5
+    Angle: 0.5
+    Color: {r: 0, g: 0, b: 0, a: 0}
   IsMirroredVersion: 0
 --- !u!1 &425017598 stripped
 GameObject:
@@ -3394,9 +3403,16 @@ MonoBehaviour:
     EarPrefab: {fileID: 5928310046696817692, guid: b4c722822acae224db949601ad785419, type: 3}
     AngleLimits: {x: -15, y: 15}
     HoriLimits: {x: -0.9, y: -0.5}
-    VertLimits: {x: 0, y: 0.3}
+    VertLimits: {x: -0.3, y: 0.3}
     SizeLimits: {x: 0.1, y: 0.4}
-    Mirror: 1
+    _defaultSettings:
+      Mirror: 1
+      MatchColor: 1
+      Vert: 0.307
+      Hori: 0
+      Size: 0.5
+      Angle: 0.5
+      Color: {r: 0, g: 0, b: 0, a: 0}
   - Name: 
     Type: 2
     SubType: 0
@@ -3408,9 +3424,16 @@ MonoBehaviour:
     EarPrefab: {fileID: 752956026710145244, guid: a531516a2950ec24ca0d8f841898f911, type: 3}
     AngleLimits: {x: -15, y: 15}
     HoriLimits: {x: -0.9, y: -0.5}
-    VertLimits: {x: 0, y: 0.3}
+    VertLimits: {x: -0.3, y: 0.3}
     SizeLimits: {x: 0.1, y: 0.4}
-    Mirror: 1
+    _defaultSettings:
+      Mirror: 1
+      MatchColor: 1
+      Vert: 0.33
+      Hori: 0
+      Size: 0.5
+      Angle: 0.5
+      Color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &639578356
 GameObject:
   m_ObjectHideFlags: 0
@@ -5148,7 +5171,14 @@ MonoBehaviour:
     HoriLimits: {x: -0.5, y: 0.5}
     VertLimits: {x: -0.6, y: 0.75}
     SizeLimits: {x: 0.3, y: 0.79}
-    Mirror: 1
+    _defaultSettings:
+      Mirror: 1
+      MatchColor: 1
+      Vert: 0.5
+      Hori: 0.17
+      Size: 0.334
+      Angle: 0.5
+      Color: {r: 0.46226418, g: 0.29774684, b: 0.2551175, a: 0}
   - Name: eyes3
     Type: 0
     SubType: 1
@@ -5162,7 +5192,14 @@ MonoBehaviour:
     HoriLimits: {x: -0.5, y: 0.5}
     VertLimits: {x: -0.6, y: 0.75}
     SizeLimits: {x: 0.3, y: 0.79}
-    Mirror: 1
+    _defaultSettings:
+      Mirror: 1
+      MatchColor: 1
+      Vert: 0.5
+      Hori: 0.17
+      Size: 0.334
+      Angle: 0.5
+      Color: {r: 0.46226418, g: 0.29774684, b: 0.2551175, a: 0}
   - Name: brows1
     Type: 0
     SubType: 0
@@ -5176,7 +5213,14 @@ MonoBehaviour:
     HoriLimits: {x: -0.5, y: 0.5}
     VertLimits: {x: -0.6, y: 0.75}
     SizeLimits: {x: 0.3, y: 0.8}
-    Mirror: 1
+    _defaultSettings:
+      Mirror: 1
+      MatchColor: 1
+      Vert: 0.643
+      Hori: 0.17
+      Size: 0.334
+      Angle: 0.5
+      Color: {r: 0.46226418, g: 0.29774684, b: 0.2551175, a: 0}
   - Name: brows3
     Type: 0
     SubType: 0
@@ -5190,7 +5234,14 @@ MonoBehaviour:
     HoriLimits: {x: -0.5, y: 0.5}
     VertLimits: {x: -0.6, y: 0.75}
     SizeLimits: {x: 0.3, y: 0.8}
-    Mirror: 1
+    _defaultSettings:
+      Mirror: 1
+      MatchColor: 1
+      Vert: 0.643
+      Hori: 0.17
+      Size: 0.334
+      Angle: 0.5
+      Color: {r: 0.46226418, g: 0.29774684, b: 0.2551175, a: 0}
   - Name: nose1
     Type: 0
     SubType: 2
@@ -5204,7 +5255,14 @@ MonoBehaviour:
     HoriLimits: {x: -0.5, y: 0.5}
     VertLimits: {x: -0.6, y: 0.75}
     SizeLimits: {x: 0.3, y: 0.8}
-    Mirror: 0
+    _defaultSettings:
+      Mirror: 0
+      MatchColor: 1
+      Vert: 0.5
+      Hori: 0.5
+      Size: 0.5
+      Angle: 0.5
+      Color: {r: 0, g: 0, b: 0, a: 0}
   - Name: nose3
     Type: 0
     SubType: 2
@@ -5218,7 +5276,14 @@ MonoBehaviour:
     HoriLimits: {x: -0.5, y: 0.5}
     VertLimits: {x: -0.6, y: 0.75}
     SizeLimits: {x: 0.3, y: 0.8}
-    Mirror: 0
+    _defaultSettings:
+      Mirror: 0
+      MatchColor: 1
+      Vert: 0.5
+      Hori: 0.5
+      Size: 0.5
+      Angle: 0.5
+      Color: {r: 0, g: 0, b: 0, a: 0}
   - Name: lips2
     Type: 0
     SubType: 3
@@ -5232,7 +5297,14 @@ MonoBehaviour:
     HoriLimits: {x: -0.5, y: 0.5}
     VertLimits: {x: -0.6, y: 0.75}
     SizeLimits: {x: 0.3, y: 0.8}
-    Mirror: 0
+    _defaultSettings:
+      Mirror: 0
+      MatchColor: 1
+      Vert: 0.153
+      Hori: 0.5
+      Size: 0.5
+      Angle: 0.5
+      Color: {r: 0.6415094, g: 0.29357016, b: 0.099857606, a: 0}
   _selected: 0
 --- !u!1001 &1246364890
 PrefabInstance:
@@ -5358,6 +5430,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 62.9865
       objectReference: {fileID: 0}
+    - target: {fileID: 5070469061378559249, guid: 97ee02709ea703e40b255359263fb142, type: 3}
+      propertyPath: m_text
+      value: out
+      objectReference: {fileID: 0}
     - target: {fileID: 5077578526807043699, guid: 97ee02709ea703e40b255359263fb142, type: 3}
       propertyPath: m_text
       value: backward tilt
@@ -5465,6 +5541,10 @@ PrefabInstance:
     - target: {fileID: 6173423253011261941, guid: 97ee02709ea703e40b255359263fb142, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6439468898052441872, guid: 97ee02709ea703e40b255359263fb142, type: 3}
+      propertyPath: m_text
+      value: in
       objectReference: {fileID: 0}
     - target: {fileID: 6466911195342953237, guid: 97ee02709ea703e40b255359263fb142, type: 3}
       propertyPath: m_AnchorMax.y
@@ -5804,7 +5884,14 @@ MonoBehaviour:
     HoriLimits: {x: 0, y: 0}
     VertLimits: {x: 0, y: 0}
     SizeLimits: {x: 0.3, y: 1.5}
-    Mirror: 1
+    _defaultSettings:
+      Mirror: 0
+      MatchColor: 1
+      Vert: 0.5
+      Hori: 0.5
+      Size: 0.5
+      Angle: 0.5
+      Color: {r: 0, g: 0, b: 0, a: 0}
   - Name: 
     Type: 1
     SubType: 4
@@ -5818,7 +5905,14 @@ MonoBehaviour:
     HoriLimits: {x: 0, y: 0}
     VertLimits: {x: 0, y: 0}
     SizeLimits: {x: 0.3, y: 1.5}
-    Mirror: 0
+    _defaultSettings:
+      Mirror: 0
+      MatchColor: 1
+      Vert: 0.5
+      Hori: 0.5
+      Size: 0.5
+      Angle: 0.5
+      Color: {r: 0, g: 0, b: 0, a: 0}
   _currentIndex: 0
   _limits: {x: 10, y: 10}
   _scaleLimits: {x: 0.2, y: 1.8}
@@ -7653,6 +7747,7 @@ MonoBehaviour:
   Camera: {fileID: 331635238}
   _character: {fileID: 386316190}
   _saveFileName: saves.txt
+  _wordsFile: {fileID: 4900000, guid: 22d25a1e4088e0744a0a3a9ca75739ea, type: 3}
 --- !u!4 &1991562804
 Transform:
   m_ObjectHideFlags: 0

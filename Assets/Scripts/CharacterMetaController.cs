@@ -11,6 +11,8 @@ public class CharacterMetaController : MonoBehaviour
     [SerializeField] private HairController _hair;
     [SerializeField] private EarController _ears;
 
+    public Color SkinColor => _skinColor;
+
     private void Start()
     {
         SetSkinColor(_skinColor);
@@ -23,13 +25,9 @@ public class CharacterMetaController : MonoBehaviour
         _face.LoadFromString(parts[0]);
         _hair.LoadFromString(parts[1]);
         _ears.LoadFromString(parts[2]);
-        /*
-        _face.LoadFromString(parts[0]);
-        _face.LoadFromString(parts[0]);*/
 
-
-        ColorUtility.TryParseHtmlString(parts[3], out var rgb);
-        SetSkinColor(rgb);
+        ColorUtility.TryParseHtmlString(parts[3], out _skinColor);
+        SetSkinColor(_skinColor);
     }
 
     public string GetSaveString()
