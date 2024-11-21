@@ -25,14 +25,19 @@ public abstract class FeatureObj : MonoBehaviour
 
     public void ConfigureFromString(string inputString)
     {
-        var parts = inputString.Split(",");
-        Data.Mirror = (MirrorType) Enum.Parse(typeof(MirrorType), parts[0]);
-        Data.MatchColor = bool.Parse(parts[1]);
-        Hori = float.Parse(parts[2]);
-        Vert = float.Parse(parts[3]);
-        Size = float.Parse(parts[4]);
-        Angle = float.Parse(parts[5]);
-        ColorUtility.TryParseHtmlString(parts[6], out Color);
+
+        var numString = inputString.Substring(1);
+
+        int mirrorMatchNum = int.Parse(inputString[0].ToString());
+        Data.MatchColor = (mirrorMatchNum / 3) == 1;
+        Data.Mirror = (MirrorType)(mirrorMatchNum % 3);
+
+        Hori = float.Parse(numString.Substring(0, 3)) / 1000;
+        Vert = float.Parse(numString.Substring(3, 3)) / 1000;
+        Size = float.Parse(numString.Substring(6, 3)) / 1000;
+        Angle = float.Parse(numString.Substring(9, 3)) / 1000;
+
+        ColorUtility.TryParseHtmlString("#" + numString.Substring(12, 6), out Color);
         UpdateDisplay();
 
         SetColor(Color);
@@ -41,20 +46,23 @@ public abstract class FeatureObj : MonoBehaviour
     public override string ToString()
     {
         var result = Data.Icon.name + "~";
+        result += (Convert.ToInt32(Data.MatchColor) * 3 + (int)Data.Mirror);
+        //result += Data.Mirror.ToString() + Data.MatchColor.ToString();
+        result += Round(Hori) + Round(Vert) + Round(Size) + Round(Angle) + Color.ToHex();
 
-        var list = new List<string>
-        {
-            Data.Mirror.ToString(),
-            Data.MatchColor.ToString(),
-            Hori.ToString(),
-            Vert.ToString(),
-            Size.ToString(),
-            Angle.ToString(),
-            Color.ToHex()
-        };
-        result += string.Join(",", list);
+        result = result.Replace("True", "T");
+        result = result.Replace("False", "F");
+        result = result.Replace("LEFT", "L");
+        result = result.Replace("BOTH", "B");
+        result = result.Replace("RIGHT", "R");
+        result = result.Replace("#", "");
 
         return result;
+    }
+
+    private string Round(float input )
+    {
+        return Mathf.FloorToInt(input * 1000).ToString();
     }
 
     protected virtual void UpdateDisplay()
