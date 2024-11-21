@@ -1,4 +1,5 @@
 using MyBox;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,6 +22,40 @@ public abstract class FeatureObj : MonoBehaviour
     public FeatureData GetData() => new FeatureData(Data);
     public Vector4 GetValues() => new Vector4(Hori, Vert, Size, Angle);
     public Color GetColor() => Color;
+
+    public void ConfigureFromString(string inputString)
+    {
+        var parts = inputString.Split(",");
+        Data.Mirror = (MirrorType) Enum.Parse(typeof(MirrorType), parts[0]);
+        Data.MatchColor = bool.Parse(parts[1]);
+        Hori = float.Parse(parts[2]);
+        Vert = float.Parse(parts[3]);
+        Size = float.Parse(parts[4]);
+        Angle = float.Parse(parts[5]);
+        ColorUtility.TryParseHtmlString(parts[6], out Color);
+        UpdateDisplay();
+
+        SetColor(Color);
+    }
+
+    public override string ToString()
+    {
+        var result = Data.Icon.name + "~";
+
+        var list = new List<string>
+        {
+            Data.Mirror.ToString(),
+            Data.MatchColor.ToString(),
+            Hori.ToString(),
+            Vert.ToString(),
+            Size.ToString(),
+            Angle.ToString(),
+            Color.ToHex()
+        };
+        result += string.Join(",", list);
+
+        return result;
+    }
 
     protected virtual void UpdateDisplay()
     {

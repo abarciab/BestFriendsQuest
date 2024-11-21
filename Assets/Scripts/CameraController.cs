@@ -8,6 +8,7 @@ public class CameraController : MonoBehaviour
 {
     [SerializeField] private Vector2 _minMaxZoom;
     [SerializeField] private float _zoomSpeed;
+    [SerializeField] private Transform _character;
     
     [SerializeField]
     private void Update()
@@ -15,15 +16,17 @@ public class CameraController : MonoBehaviour
         if (!EventSystem.current.IsPointerOverGameObject()) Scroll();
     }
 
-    //update to scroll away from the character, not just back
     private void Scroll()
     {
-        float delta = Input.mouseScrollDelta.y;
-        var z = transform.position.z;
-        z += delta * _zoomSpeed * Time.deltaTime * 10;
-        z = Mathf.Clamp(z, _minMaxZoom.x, _minMaxZoom.y);
-        var pos = transform.position;
-        pos.z = z;
-        transform.position = pos;
+        var dist = Vector3.Distance(transform.position, _character.position);
+        var dir = (_character.position - transform.position).normalized;
+
+        float scrollDelta = Input.mouseScrollDelta.y;
+        var dirMod = scrollDelta * _zoomSpeed * Time.deltaTime * 10;
+        if ( (dist + dirMod > _minMaxZoom.y && scrollDelta < 0) || (dist + dirMod < _minMaxZoom.x && scrollDelta > 0)) return;
+        
+        var posDelta = dir * dirMod;
+        transform.position += posDelta;
+
     }
 }

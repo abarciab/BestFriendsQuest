@@ -6,7 +6,19 @@ using UnityEngine;
 
 public class Test : MonoBehaviour
 {
-    private void OnDisable()
+    [SerializeField] private CharacterMetaController _character;
+    [SerializeField, TextArea(3, 10)] private string _output;
+    [SerializeField, TextArea(3, 10)] private string _input;
+
+    [ButtonMethod]
+    private void GetSaveString()
     {
+        _output = _character.GetSaveString();
+    }
+
+    [ButtonMethod]
+    private void LoadString()
+    {
+        _character.LoadFromString(_input);
     }
 }

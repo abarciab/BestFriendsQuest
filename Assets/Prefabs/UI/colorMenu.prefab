@@ -776,7 +776,7 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -876,6 +876,8 @@ GameObject:
   m_Component:
   - component: {fileID: 408139774439914567}
   - component: {fileID: 3925489662723602751}
+  - component: {fileID: 6428023519242038321}
+  - component: {fileID: 1565334271432924993}
   m_Layer: 5
   m_Name: colorMenu
   m_TagString: Untagged
@@ -949,6 +951,39 @@ MonoBehaviour:
   _fieldOutline: {fileID: 2864626258778533551}
   _hexSectionParent: {fileID: 7769872494838671070}
   _selector: {fileID: 3063995542792016207}
+--- !u!95 &6428023519242038321
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4143076641736682994}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 35fa39699224b254cbaf08514d826227, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!225 &1565334271432924993
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4143076641736682994}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &4224616857474526680
 GameObject:
   m_ObjectHideFlags: 0
@@ -5261,82 +5296,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4881873832863554129, guid: 0abe177e52f97e24ea266e60925126fd, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2848986709567166421}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0abe177e52f97e24ea266e60925126fd, type: 3}
---- !u!114 &450133812606154887 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6148868766398981552, guid: 0abe177e52f97e24ea266e60925126fd, type: 3}
-  m_PrefabInstance: {fileID: 6010644972863003959}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1213156752076818278}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5d26cb22f8b45d42947921acedb2e61, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &1213156752076818278 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4881873832863554129, guid: 0abe177e52f97e24ea266e60925126fd, type: 3}
-  m_PrefabInstance: {fileID: 6010644972863003959}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2848986709567166421
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1213156752076818278}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 898f698a9835d194c90dd0b423be4462, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _selectOnClick: 1
-  _toggleOnClick: 0
-  _deselectOnClick: 0
-  _dontHoverWhenSelected: 0
-  _selectOnHover: 0
-  _deselectOnExit: 1
-  _hasHoverCooldown: 0
-  _hoverCooldown: 0.05
-  _deselectOnStart: 1
-  _autoDehover: 1
-  _data: []
-  _hasAnimation: 0
-  _animator: {fileID: 0}
-  _animationBool: Selected
-  _hoverSound: {fileID: 11400000, guid: 4ba078087b4262248a49dc212ae8bee6, type: 2}
-  _selectSound: {fileID: 11400000, guid: 937ddfdca0a09a343831e509caa6a123, type: 2}
-  _deselectSound: {fileID: 0}
-  OnSelect:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 450133812606154887}
-        m_TargetAssemblyTypeName: CheckBox, Assembly-CSharp
-        m_MethodName: Toggle
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnHover:
-    m_PersistentCalls:
-      m_Calls: []
-  OnEndHover:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDeselect:
-    m_PersistentCalls:
-      m_Calls: []
-  _printSelections: 0
-  _disabled: 0
 --- !u!224 &5846827717130933316 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 166073627001997683, guid: 0abe177e52f97e24ea266e60925126fd, type: 3}

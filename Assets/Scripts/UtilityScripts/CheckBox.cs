@@ -26,6 +26,12 @@ public class CheckBox : MonoBehaviour
         _checkMark.SetActive(_checked);
     }
 
+    public void SetCheckedVisual(bool isChecked)
+    {
+        _checked = isChecked;
+        _checkMark.SetActive(isChecked);
+    }
+
     public void Toggle()
     {
         if (_checked) ToggleOff();

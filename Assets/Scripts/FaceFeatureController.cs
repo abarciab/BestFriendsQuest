@@ -4,7 +4,6 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class FaceFeatureController : MonoBehaviour, IFeatureController
 {
     [SerializeField] private GameObject _featurePrefab;
@@ -30,6 +29,33 @@ public class FaceFeatureController : MonoBehaviour, IFeatureController
         CurrentFeatures = GetComponentsInChildren<FacialFeature>().Where(x => !x.IsMirroredVersion).ToList();
     }
 
+    public void LoadFromString(string saveString)
+    {
+        var toDelete = new List<FacialFeature>(CurrentFeatures);
+        foreach (var f in toDelete) Delete(f);
+        if (string.IsNullOrWhiteSpace(saveString)) return;
+
+        var parts = saveString.Split("&");
+        foreach (var p in parts) {
+            AddFeatureFromString(p);
+        }
+    }
+
+    private void AddFeatureFromString(string featureString)
+    {
+        var parts = featureString.Split("~");
+        FeatureData selected = null;
+        foreach (var f in _allFeatures) if (f.Icon.name == parts[0]) selected = f;
+        var newFeature = AddFeature(selected);
+        newFeature.ConfigureFromString(parts[1]);
+    }
+
+    public string GetSaveString()
+    {
+        var list = new List<string>();
+        foreach (var f in CurrentFeatures) list.Add(f.ToString());
+        return string.Join("&", list) + "|";
+    }
 
     public void SetCurrentColor(Color color)
     {
@@ -74,4 +100,5 @@ public class FaceFeatureController : MonoBehaviour, IFeatureController
         if (!found) _allFeatures.Add(data);
         Utils.SetDirty(this);
     }
+
 }

@@ -59,6 +59,7 @@ public class Ear : FeatureObj
         Data = data;
         Destroy(_model);
         initilize();
+        if (MirroredFeature != null) MirroredFeature.As<Ear>().SetData(data);
     }
 
     [ButtonMethod]

@@ -161,6 +161,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6527975952769810810}
   - component: {fileID: 2216961476236885902}
+  - component: {fileID: 5067647293539264439}
+  - component: {fileID: 4169664871619554822}
   m_Layer: 5
   m_Name: faceMenuTabButton
   m_TagString: Untagged
@@ -264,6 +266,39 @@ MonoBehaviour:
       m_Calls: []
   _printSelections: 0
   _disabled: 0
+--- !u!95 &5067647293539264439
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6952151693340840941}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d7d03449c89f3a94e9a131b47c6c6eb5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!225 &4169664871619554822
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6952151693340840941}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &9090970601200890781
 GameObject:
   m_ObjectHideFlags: 0

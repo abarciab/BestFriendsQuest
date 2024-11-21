@@ -24,9 +24,38 @@ public class HairController : MonoBehaviour, IFeatureController
 
     private void Start()
     {
+        HairColor = Color.green;
         _currentPieces = GetComponentsInChildren<HairPiece>().Where(x => !x.IsMirroredVersion).ToList();
         foreach (var c in _currentPieces) c.Initialize(this);
         foreach (var c in _currentPieces) if (c.GetData().MatchColor) c.SetColor(HairColor);
+    }
+
+    public void LoadFromString(string saveString)
+    {
+        var toDelete = new List<HairPiece>(_currentPieces);
+        foreach (var f in toDelete) Delete(f);
+        if (string.IsNullOrWhiteSpace(saveString)) return;
+
+        var parts = saveString.Split("&");
+        foreach (var p in parts) {
+            AddFeatureFromString(p);
+        }
+    }
+
+    private void AddFeatureFromString(string featureString)
+    {
+        var parts = featureString.Split("~");
+        FeatureData selected = null;
+        foreach (var f in _allOptions) if (f.Icon.name == parts[0]) selected = f;
+        var newFeature = AddFeature(selected);
+        newFeature.ConfigureFromString(parts[1]);
+    }
+
+    public string GetSaveString()
+    {
+        var list = new List<string>();
+        foreach (var f in _currentPieces) list.Add(f.ToString());
+        return string.Join("&", list) + "|";
     }
 
     public void SetCurrentColor(Color newColor)
@@ -119,5 +148,4 @@ public class HairController : MonoBehaviour, IFeatureController
         _allOptions.Add(data);
         Utils.SetDirty(this);
     }
-
 }

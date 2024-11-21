@@ -1,6 +1,8 @@
 using MyBox;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,9 +17,28 @@ public class GameManager : MonoBehaviour
     [SerializeField] MusicPlayer _music;
     public Transform Camera;
 
+    [Header("saving")]
+    [SerializeField] private CharacterMetaController _character;
+    [SerializeField] private string _saveFileName = "saves.txt";
+    private string _path => Path.Combine(Application.streamingAssetsPath, _saveFileName);
+
     private void Update()
     {
         if (InputController.GetDown(Control.PAUSE)) TogglePause();
+    }
+
+    public void SaveCurrent()
+    { 
+        Directory.CreateDirectory(Path.GetDirectoryName(_path));
+        File.WriteAllText(_path, _character.GetSaveString());
+        print("saved sucessfully to: " + _path);
+    }
+
+    public void LoadFromSave()
+    {
+        var saveString = File.ReadAllText(_path);
+        _character.LoadFromString(saveString);
+        print("loaded sucessfully from: " + _path);
     }
 
     void TogglePause()

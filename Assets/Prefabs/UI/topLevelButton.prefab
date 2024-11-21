@@ -72,7 +72,7 @@ MonoBehaviour:
     _disabledColor: {r: 1, g: 1, b: 1, a: 1}
     _normalMat: {fileID: 2100000, guid: 63dcab7f8f0a12f4fb6e6be07d815c05, type: 2}
     _hoveredMat: {fileID: 2100000, guid: d942fec5482c71046988e09d0577f27b, type: 2}
-    _selectedMat: {fileID: 2100000, guid: 0f3992b290d59b14691586564ff58877, type: 2}
+    _selectedMat: {fileID: 2100000, guid: 7160d7804104cf449b264aa9a7a0d415, type: 2}
     _disabledMat: {fileID: 0}
     _obj: {fileID: 0}
     _normalState: 0
@@ -92,6 +92,38 @@ MonoBehaviour:
     _showGraphicSettings: 1
     _showGraphicColorSettings: 0
     _showGOSettings: 0
+    _showGroupSettings: 0
+    _showSpriteSettings: 0
+  - Name: tabOverlap
+    _type: 1
+    _target: {fileID: 4270617570230494675}
+    _useMaterials: 0
+    _normalColor: {r: 1, g: 1, b: 1, a: 1}
+    _hoveredColor: {r: 1, g: 1, b: 1, a: 1}
+    _selectedColor: {r: 1, g: 1, b: 1, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 1}
+    _normalMat: {fileID: 2100000, guid: 63dcab7f8f0a12f4fb6e6be07d815c05, type: 2}
+    _hoveredMat: {fileID: 2100000, guid: d942fec5482c71046988e09d0577f27b, type: 2}
+    _selectedMat: {fileID: 2100000, guid: 7160d7804104cf449b264aa9a7a0d415, type: 2}
+    _disabledMat: {fileID: 0}
+    _obj: {fileID: 7294045092049456927}
+    _normalState: 0
+    _hoveredState: 0
+    _selectedState: 1
+    _disabledState: 0
+    _group: {fileID: 0}
+    _normalAlpha: 0.3
+    _hoveredAlpha: 0.6
+    _selectedAlpha: 1
+    _disabledAlpha: 0.2
+    _spriteTarget: {fileID: 0}
+    _normalSprite: {fileID: 0}
+    _hoveredSprite: {fileID: 0}
+    _selectedSprite: {fileID: 0}
+    _disabledSprite: {fileID: 0}
+    _showGraphicSettings: 0
+    _showGraphicColorSettings: 0
+    _showGOSettings: 1
     _showGroupSettings: 0
     _showSpriteSettings: 0
   _hasAnimation: 1
@@ -253,6 +285,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2652274399647368352}
+  - {fileID: 1728038655347032894}
   m_Father: {fileID: 76481456806815689}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -364,6 +397,81 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 35c9fa18e074d594db4aed984b0c1132, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!1 &7294045092049456927
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1728038655347032894}
+  - component: {fileID: 5382297911282114513}
+  - component: {fileID: 5451904502638339962}
+  m_Layer: 5
+  m_Name: tabOverlap
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1728038655347032894
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7294045092049456927}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 433671121392935279}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 23.0265, y: -0.12940216}
+  m_SizeDelta: {x: -46.0531, y: -5.1394}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &5382297911282114513
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7294045092049456927}
+  m_CullTransparentMesh: 1
+--- !u!114 &5451904502638339962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7294045092049456927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 2100000, guid: 7160d7804104cf449b264aa9a7a0d415, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

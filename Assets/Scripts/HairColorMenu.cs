@@ -8,6 +8,7 @@ public class HairColorMenu : MonoBehaviour
 {
     private ColorMenuController _controller;
     [SerializeField] private HairController _hairController;
+    [SerializeField] private CheckBox _matchCheckBox;
 
     private bool _matching;
 
@@ -16,6 +17,8 @@ public class HairColorMenu : MonoBehaviour
         if (!_controller) _controller = GetComponent<ColorMenuController>();
         _controller.SetFromHexCode(_hairController.Current.GetColor().ToHex());
         _matching = _hairController.Current.GetData().MatchColor;
+        _matchCheckBox.SetCheckedVisual(_matching);
+
     }
 
     public void SetMatch(bool match)

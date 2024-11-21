@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 5625896630747017580}
   - component: {fileID: 3919876305991141157}
   - component: {fileID: 6148868766398981552}
+  - component: {fileID: 8422781957811981026}
   m_Layer: 0
   m_Name: checkBox
   m_TagString: Untagged
@@ -178,6 +179,61 @@ MonoBehaviour:
   _onToggleOff:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &8422781957811981026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4881873832863554129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 898f698a9835d194c90dd0b423be4462, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _selectOnClick: 1
+  _toggleOnClick: 0
+  _deselectOnClick: 0
+  _dontHoverWhenSelected: 0
+  _selectOnHover: 0
+  _deselectOnExit: 1
+  _hasHoverCooldown: 0
+  _hoverCooldown: 0.05
+  _deselectOnStart: 1
+  _autoDehover: 1
+  _data: []
+  _hasAnimation: 0
+  _animator: {fileID: 0}
+  _animationBool: Selected
+  _hoverSound: {fileID: 11400000, guid: 4ba078087b4262248a49dc212ae8bee6, type: 2}
+  _selectSound: {fileID: 11400000, guid: 937ddfdca0a09a343831e509caa6a123, type: 2}
+  _deselectSound: {fileID: 0}
+  OnSelect:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6148868766398981552}
+        m_TargetAssemblyTypeName: CheckBox, Assembly-CSharp
+        m_MethodName: Toggle
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnHover:
+    m_PersistentCalls:
+      m_Calls: []
+  OnEndHover:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDeselect:
+    m_PersistentCalls:
+      m_Calls: []
+  _printSelections: 0
+  _disabled: 0
 --- !u!1 &6392180261720398324
 GameObject:
   m_ObjectHideFlags: 0
@@ -320,14 +376,14 @@ MonoBehaviour:
       m_Calls: []
   m_text: advanced
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 95eff472eac1bf640879b19d4109f075, type: 2}
-  m_sharedMaterial: {fileID: 2161655710560175011, guid: 95eff472eac1bf640879b19d4109f075, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: aa9f7c565b0868140b85dfe577056bf9, type: 2}
+  m_sharedMaterial: {fileID: 3357722467367768000, guid: aa9f7c565b0868140b85dfe577056bf9, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278988906
+    rgba: 4278988650
   m_fontColor: {r: 0.4156863, g: 0.18431373, b: 0.04705883, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3

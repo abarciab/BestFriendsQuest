@@ -52,6 +52,7 @@ public class FollowMouseInRectBounds : MonoBehaviour
 
     public void SetPosition(Vector2 pos)
     {
+        if (_rTransform == null) _rTransform = GetComponent<RectTransform>();
         pos.x -= 0.5f;
         pos.y -= 0.5f;
 

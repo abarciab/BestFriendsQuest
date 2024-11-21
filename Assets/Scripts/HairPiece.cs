@@ -1,15 +1,15 @@
 using MyBox;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using UnityEngine.Video;
 
 public class HairPiece : FeatureObj
 {
     [SerializeField] private Transform _modelParent;
     private HairController _controller;
     private HairPiece _mirroredFeature;
-    
+
     public void Initialize(FeatureData newData, HairController controller)
     {
         Data = newData;
@@ -37,17 +37,19 @@ public class HairPiece : FeatureObj
 
     protected override void UpdateDisplay()
     {
-        AlignWithTarget();
-        AlignToHeadNormal();
         _modelParent.transform.localScale = Vector3.one * Mathf.Lerp(Data.SizeLimits.x, Data.SizeLimits.y, Size);
-        UpdateColors(); 
+        UpdateColors();
 
         base.UpdateDisplay();
 
         if (!IsMirroredVersion) {
+            AlignWithTarget();
+            AlignToHeadNormal();
+
             _modelParent.GetChild(0).transform.localEulerAngles = Vector3.up * Mathf.Lerp(-180, 180, Angle);
 
-            if (_mirroredFeature) _mirroredFeature.SetMirrorRot(_modelParent);
+
+            if (_mirroredFeature) _mirroredFeature.SetMirrorRot(transform, _modelParent);
         }
     }
 
@@ -57,10 +59,25 @@ public class HairPiece : FeatureObj
         foreach (var r in renderers) r.material.color = Color;
     }
 
-    public void SetMirrorRot(Transform _otherModelParent)
+    public void SetMirrorRot(Transform _nonMirroredPiece, Transform modelParent)
     {
-        _modelParent.GetChild(0).transform.localEulerAngles = Vector3.up * Mathf.Lerp(-180, 180, Angle);
-        //_modelParent.rotation = _otherModelParent.rotation;
+        transform.rotation = _nonMirroredPiece.rotation;
+        var eulers = transform.localEulerAngles;
+        eulers.y *= -1;
+        transform.localEulerAngles = eulers;
+
+        _modelParent.localPosition = modelParent.localPosition;
+        
+        eulers = modelParent.localEulerAngles;
+        eulers.y *= -1;
+        eulers.z *= -1;
+        _modelParent.localEulerAngles = eulers;
+
+        var scale = _modelParent.localScale;
+        scale.x *= -1;
+        _modelParent.localScale = scale;
+
+        _modelParent.GetChild(0).transform.localEulerAngles = modelParent.GetChild(0).transform.localEulerAngles;
     }
 
     private void AlignWithTarget()
@@ -78,7 +95,7 @@ public class HairPiece : FeatureObj
             return;
         }
 
-        if (!IsMirroredVersion) _modelParent.up = hitData.normal;
+        _modelParent.up = hitData.normal;
         _modelParent.position = hitData.point;
     }
 

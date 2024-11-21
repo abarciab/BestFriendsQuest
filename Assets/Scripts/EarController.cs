@@ -18,6 +18,25 @@ public class EarController : MonoBehaviour, IFeatureController
         _currentEar.initilize();
     }
 
+    public void LoadFromString(string saveString)
+    {
+        var parts = saveString.Split("~");
+        FeatureData selected = null;
+        foreach (var f in _allOptions) if (f.Icon.name == parts[0]) selected = f;
+        _currentEar.SetData(selected);
+        _currentEar.ConfigureFromString(parts[1]);
+    }
+
+    public string GetSaveString()
+    {
+        return _currentEar.ToString() + "|";
+    }
+
+    public void UpdateCurrentEar(FeatureData data)
+    {
+        _currentEar.SetData(data);
+    }
+
     public void SetColor(Color skinColor)
     {
         _currentEar.SetColor(skinColor);
@@ -56,4 +75,5 @@ public class EarController : MonoBehaviour, IFeatureController
     public void Delete(FeatureObj feature) { }
     public void CopySettingsToCurrent(FeatureObj original) { }
     public void Select(FeatureObj feature) { }
+
 }

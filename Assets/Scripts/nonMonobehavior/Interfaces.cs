@@ -12,5 +12,7 @@ public interface IFeatureController
     public List<FeatureObj> GetCurrentFeatures();
     public void Select(FeatureObj feature);
     public List<FeatureData> GetAllOptions();
+    public string GetSaveString();
+    public void LoadFromString(string saveString);
 }
 

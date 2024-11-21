@@ -102,23 +102,27 @@ public class ColorMenuController : MonoBehaviour
     private void UpdateCurrentColor()
     {
         if (!_inputingHex) {
+            bool updateSatVal = true;
             var pos = _selector.GetNormalizedPositionFromCenter();
             if (!_advanced) {
                 pos.x = ClampToGrid(pos.x);
                 pos.y = ClampToGrid(pos.y);
                 _selector.SetPosition(pos);
-                SelectClosestGridSquare();
+                updateSatVal = SelectClosestGridSquare();
             }
 
-            _currentSat = pos.x;
-            _currentVal = pos.y;
+            if (updateSatVal) {
+                _currentSat = pos.x;
+                _currentVal = pos.y;
+            }
+
             _hexInput.UpdateText(_currentColor.ToHex());
         }
         _currentColorImg.color = _currentColor;
         if (_invoke) _onChangeColor.Invoke(_currentColor);
     }
 
-    private void SelectClosestGridSquare()
+    private bool SelectClosestGridSquare()
     {
         var shortestDist = Mathf.Infinity;
         Transform bestSquare = null;
@@ -128,9 +132,15 @@ public class ColorMenuController : MonoBehaviour
                 bestSquare = child;
                 shortestDist = dist;
             }
-            child.GetComponent<SelectableItem>().Deselect();
         }
+        if (shortestDist > 500) return false;
+
+        foreach (Transform child in _squaresParent) child.GetComponent<SelectableItem>().Deselect();
         bestSquare.GetComponent<SelectableItem>().Select();
+
+        return true;
+
+        //print("shortestDist: " + shortestDist);
     }
 
     private void StopSelecting()

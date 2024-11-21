@@ -10,4 +10,6 @@ public static class Utils
         UnityEditor.EditorUtility.SetDirty(obj);
 #endif
     }
+
+    public static string Vec2String(Vector2 v) => v.x + ":" + v.y;
 }
