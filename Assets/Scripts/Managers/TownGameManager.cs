@@ -11,10 +11,12 @@ public class TownGameManager : MonoBehaviour
     public float currency;
     
     public RecordsManager recordsManager;
+
+    [SerializeField]private List<Item> allItems = new List<Item> ();
     
     public List<string> itemNames= new List<string> (); 
     public List<int> itemCounts = new List<int> ();
-    public Dictionary<string, int> items = new Dictionary<string, int> ();
+    public Dictionary<Item, int> items = new Dictionary<Item, int> ();
 
     [Header ("UI Lists")]
 
@@ -25,17 +27,11 @@ public class TownGameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (PlayerPrefs.HasKey("PlayerCurrency"))
-        {
-            currency = PlayerPrefs.GetFloat("PlayerCurrency");
-            ChangeCurrency(0);
-        }
-        else
-        {
-            PlayerPrefs.SetFloat("PlayerCurrency", currency);
-            ChangeCurrency(100);
-        }
+        currency = PlayerPrefs.GetFloat("PlayerCurrency", 100);
+        ChangeCurrency(0);
 
+        LoadInventory();
+        
     }
 
     // Update is called once per frame
@@ -75,18 +71,25 @@ public class TownGameManager : MonoBehaviour
 
     }
 
-    public void AddInventory(string inventoryName)
+    public void AddInventory(Item newItem)
     {
-        if (items.ContainsKey(inventoryName))
+        if (items.ContainsKey(newItem))
         {
-            items[inventoryName] += 1;
+            items[newItem] += 1;
         }
         else{
-            items.Add(inventoryName, 1);
+            items.Add(newItem, 1);
         }
 
         //items.Add(inventoryName);
 
+        UpdateInventoryInspector();
+
+        SaveCurrentInventory();
+    }
+
+    private void UpdateInventoryInspector()
+    {
         itemNames.Clear();
 
         foreach (var i in items.Keys)
@@ -96,11 +99,64 @@ public class TownGameManager : MonoBehaviour
 
         itemCounts.Clear();
 
-        foreach(var j in items.Values)
+        foreach (var j in items.Values)
         {
             itemCounts.Add(j);
         }
     }
+
+    private void SaveCurrentInventory()
+    {
+        string inventory= "";
+        foreach (var i in items.Keys)
+        {
+            inventory += i.Name + "," + items[i] + ":";
+        }
+
+        PlayerPrefs.SetString("Inventory", inventory);
+        Debug.Log(inventory);
+    }
+
+    private void LoadInventory()
+    {
+        if (!PlayerPrefs.HasKey("Inventory"))return;
+
+        string inventory = PlayerPrefs.GetString("Inventory");
+
+        var inventoryList = inventory.Split(':');
+        items.Clear();
+
+
+        foreach (var i in inventoryList) { 
+        
+            var splitString= i.Split(',');
+            if(splitString.Length == 2)
+            {
+                Item newItem = GetItemFromName(splitString[0]);
+                items.Add(newItem, int.Parse(splitString[1]));
+
+            }
+        }
+
+        UpdateInventoryInspector();
+    }
+
+
+    private Item GetItemFromName(string coolItem)
+    {
+        foreach (var item in allItems)
+        {
+            if (item.Name.Equals(coolItem))
+            {
+                return item;
+            }
+        }
+
+        Debug.LogError(coolItem + " doesn't exist, what the hell?");
+        return null;
+        
+    }
+
 
     public void GiveMoney()
     {
@@ -113,7 +169,7 @@ public class TownGameManager : MonoBehaviour
 
         foreach (var i in items)
         {
-             recordsManager.CreateRecordItem(i.Key, i.Value);
+             recordsManager.CreateRecordItem(i.Key.Name, i.Value);
         }
     }
 

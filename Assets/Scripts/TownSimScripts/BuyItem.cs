@@ -6,15 +6,14 @@ public class BuyItem : MonoBehaviour
 {
     public TownGameManager gameManager;
 
-    public float cost;
-    public string itemName;
+    public Item item;
 
     public void Puchased()
     {
-        if(Mathf.Abs(cost) <= gameManager.currency)
+        if(Mathf.Abs(item.Cost) <= gameManager.currency)
         {
-            gameManager.ChangeCurrency(cost);
-            gameManager.AddInventory(itemName);
+            gameManager.ChangeCurrency(-item.Cost);
+            gameManager.AddInventory(item);
         }
         
     }

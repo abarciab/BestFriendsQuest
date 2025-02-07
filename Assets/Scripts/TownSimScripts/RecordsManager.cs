@@ -10,8 +10,6 @@ public class RecordsManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        CreateRecordItem("Cool Hat", 10);
-        CreateRecordItem("Uncool Hat", 1);
 
     }
 
