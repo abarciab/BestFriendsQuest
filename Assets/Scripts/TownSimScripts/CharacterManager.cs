@@ -4,25 +4,28 @@ using UnityEngine;
 
 public class CharacterManager : MonoBehaviour
 {
-    private List<CharacterData> allCharacters = new List<CharacterData>();
+    [SerializeField] public List<CharacterData> allCharacters = new List<CharacterData>();
 
     // Start is called before the first frame update
     void Start()
     {
-       
+        CharacterData Johnny = new CharacterData();
+        CharacterData Sally = new CharacterData();
+        CharacterData Goobert = new CharacterData();
+
+        Johnny.characterName = "Johnny";
+        Sally.characterName = "Sally";
+        Goobert.characterName = "Goobert";
+
+        allCharacters.Add(Johnny);
+        allCharacters.Add(Sally);
+        allCharacters.Add(Goobert); 
     }
 
     // Update is called once per frame
     void Update()
     {
         
-    }
-    private void MakeCharacterHouses()
-    {
-        foreach (CharacterData character in allCharacters)
-        {
-            //make their house dawg
-        }
     }
 
 }

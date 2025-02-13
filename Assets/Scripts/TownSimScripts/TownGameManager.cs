@@ -1,12 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 using Unity.VisualScripting;
 
 public class TownGameManager : MonoBehaviour
 {
+    [Header("Character Manager")]
+
+    public CharacterManager characterManager;
+
+    public GameObject houseGrid;
+    public GameObject houseButtonPrefab;
+
+    public GameObject houseMenuUI;
+    public GameObject houseMenuPrefab;
+
     [Header ("Inventory")]
     public float currency;
     
@@ -31,7 +42,10 @@ public class TownGameManager : MonoBehaviour
         ChangeCurrency(0);
 
         LoadInventory();
-        
+
+        MakeCharacterHouses();
+
+
     }
 
     // Update is called once per frame
@@ -172,7 +186,28 @@ public class TownGameManager : MonoBehaviour
              recordsManager.CreateRecordItem(i.Key.Name, i.Value);
         }
     }
+    private void MakeCharacterHouses()
+    {
+        foreach (CharacterData character in characterManager.allCharacters)
+        {
+            //make their house dawg
+            GameObject newHouse = Instantiate(houseButtonPrefab, houseGrid.transform);
+            newHouse.GetComponent<Button>().onClick.AddListener(() => OpenHouse(character));
 
-    
+            GameObject newHouseMenu = Instantiate(houseMenuPrefab, houseMenuUI.transform);
+            newHouseMenu.SetActive(false);
+            character.house = newHouseMenu;
+            
+        }
+    }
+
+    private void OpenHouse(CharacterData character)
+    {
+        Debug.Log(character.characterName);
+
+        character.house.gameObject.SetActive(true);
+    }
+
+
 
 }

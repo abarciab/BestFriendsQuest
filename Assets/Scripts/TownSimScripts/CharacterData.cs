@@ -1,17 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering;
+using UnityEngine.Rendering.VirtualTexturing;
+using UnityEngine.UI;
+using TMPro;
 
-public class CharacterData : MonoBehaviour
+[System.Serializable]
+public class CharacterData 
 {
     [Header("Profile")]
-    private string characterName;
-    private int age;
+    public string characterName;
+    public int age;
 
     [Header("Happiness")]
-    private float happiness;
+    public float happiness;
 
     [Header("Relationships")]
-    private Dictionary<string, float> items = new Dictionary<string, float>();
+    public Dictionary<string, float> items = new Dictionary<string, float>();
+
+    [Header("House")]
+    public GameObject house;
 
 }
