@@ -469,7 +469,7 @@ PrefabInstance:
       objectReference: {fileID: 1141014259}
     - target: {fileID: 1644993578229689105, guid: 5e39acf2f1421b14fbdf4aefc9fdf830, type: 3}
       propertyPath: m_text
-      value: Clothing Store
+      value: Back
       objectReference: {fileID: 0}
     - target: {fileID: 1800572587679087139, guid: 5e39acf2f1421b14fbdf4aefc9fdf830, type: 3}
       propertyPath: m_Pivot.x
@@ -627,7 +627,7 @@ PrefabInstance:
       objectReference: {fileID: 1141014259}
     - target: {fileID: 1644993578229689105, guid: 5e39acf2f1421b14fbdf4aefc9fdf830, type: 3}
       propertyPath: m_text
-      value: Clothing Store
+      value: Back
       objectReference: {fileID: 0}
     - target: {fileID: 1800572587679087139, guid: 5e39acf2f1421b14fbdf4aefc9fdf830, type: 3}
       propertyPath: m_Pivot.x
@@ -1393,7 +1393,7 @@ PrefabInstance:
       objectReference: {fileID: 1141014259}
     - target: {fileID: 1644993578229689105, guid: 5e39acf2f1421b14fbdf4aefc9fdf830, type: 3}
       propertyPath: m_text
-      value: Clothing Store
+      value: Back
       objectReference: {fileID: 0}
     - target: {fileID: 1800572587679087139, guid: 5e39acf2f1421b14fbdf4aefc9fdf830, type: 3}
       propertyPath: m_Pivot.x
@@ -1553,7 +1553,7 @@ PrefabInstance:
       objectReference: {fileID: 1141014259}
     - target: {fileID: 1644993578229689105, guid: 5e39acf2f1421b14fbdf4aefc9fdf830, type: 3}
       propertyPath: m_text
-      value: Clothing Store
+      value: Back
       objectReference: {fileID: 0}
     - target: {fileID: 1800572587679087139, guid: 5e39acf2f1421b14fbdf4aefc9fdf830, type: 3}
       propertyPath: m_Pivot.x
@@ -1824,7 +1824,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &727938974
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2012,7 +2012,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &783917763
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2655,6 +2655,8 @@ MonoBehaviour:
   - {fileID: 718008970}
   - {fileID: 665747515}
   - {fileID: 1471430364}
+  neighborhoodUI: {fileID: 783917762}
+  neighborhood: {fileID: 1347480911}
 --- !u!1001 &1163697508
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2891,7 +2893,7 @@ PrefabInstance:
       objectReference: {fileID: 1141014259}
     - target: {fileID: 1644993578229689105, guid: 5e39acf2f1421b14fbdf4aefc9fdf830, type: 3}
       propertyPath: m_text
-      value: Clothing Store
+      value: Back
       objectReference: {fileID: 0}
     - target: {fileID: 1800572587679087139, guid: 5e39acf2f1421b14fbdf4aefc9fdf830, type: 3}
       propertyPath: m_Pivot.x
@@ -3213,7 +3215,7 @@ PrefabInstance:
       objectReference: {fileID: 1141014259}
     - target: {fileID: 1644993578229689105, guid: 5e39acf2f1421b14fbdf4aefc9fdf830, type: 3}
       propertyPath: m_text
-      value: Clothing Store
+      value: Back
       objectReference: {fileID: 0}
     - target: {fileID: 1800572587679087139, guid: 5e39acf2f1421b14fbdf4aefc9fdf830, type: 3}
       propertyPath: m_Pivot.x

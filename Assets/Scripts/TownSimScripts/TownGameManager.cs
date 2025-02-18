@@ -35,6 +35,9 @@ public class TownGameManager : MonoBehaviour
     public List<GameObject> sceneUIList = new List<GameObject>();
     public List<TMP_Text> currencyDisplays = new List<TMP_Text>();
 
+    public GameObject neighborhoodUI;
+    public GameObject neighborhood;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,8 +46,7 @@ public class TownGameManager : MonoBehaviour
 
         LoadInventory();
 
-        MakeCharacterHouses();
-
+        //MakeCharacterHouses();
 
     }
 
@@ -71,6 +73,10 @@ public class TownGameManager : MonoBehaviour
 
         newScene.SetActive(true);
         newSceneUI.SetActive(true);
+
+        //delete later
+        MakeCharacterHouses();
+
     }
 
     public void ChangeCurrency(float curChange)
@@ -188,17 +194,37 @@ public class TownGameManager : MonoBehaviour
     }
     private void MakeCharacterHouses()
     {
+        //get rid of old house list, then make new one
+
+        foreach (Transform child in houseGrid.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        foreach (Transform child in houseMenuUI.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
         foreach (CharacterData character in characterManager.allCharacters)
         {
             //make their house dawg
             GameObject newHouse = Instantiate(houseButtonPrefab, houseGrid.transform);
             newHouse.GetComponent<Button>().onClick.AddListener(() => OpenHouse(character));
+            newHouse.GetComponentInChildren<TMP_Text>().text = character.characterName;
 
             GameObject newHouseMenu = Instantiate(houseMenuPrefab, houseMenuUI.transform);
             newHouseMenu.SetActive(false);
             character.house = newHouseMenu;
-            
+
+            //sets back button
+            newHouseMenu.GetComponentInChildren<NavigationButton>().newScene = neighborhood;
+            newHouseMenu.GetComponentInChildren<NavigationButton>().newSceneUI = neighborhoodUI;
+            newHouseMenu.GetComponentInChildren<NavigationButton>().gameManager = this;
+
+
+
         }
+
     }
 
     private void OpenHouse(CharacterData character)
